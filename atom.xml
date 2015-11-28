@@ -4,7 +4,7 @@
   <subtitle><![CDATA[快乐的逗比程序员]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-11-14T13:49:32.331Z</updated>
+  <updated>2015-11-28T06:03:08.856Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[xutils3上传图片]]></title>
+    <link href="http://yoursite.com/2015/11/27/xutils3/"/>
+    <id>http://yoursite.com/2015/11/27/xutils3/</id>
+    <published>2015-11-27T13:32:59.000Z</published>
+    <updated>2015-11-28T06:03:08.856Z</updated>
+    <content type="html"><![CDATA[<p>　　xutils是国内wyoufif大神写的一个牛逼的开源库，功能挺全面的（单图上传、批量上传（图片）文件、加载网路图片等）。但是xutils以前的版本是基于httpclient的，者本来对于android没什么影响的。但是谷歌偏偏在android6.0以后的版本删除了httpClient，这就让我们无法正确的使用xutils了，于是xutils的作者wyoufif在前不久对对xutils版本进行大量重构，从而推出xutils3.x版本。<a href="https://github.com/wyouflf/xUtils3" target="_blank" rel="external">xutils3详情查看</a><br><a id="more"></a></p>
+<h3 id="1、xutils3简介">1、xutils3简介</h3><p>　　xutils3是作者wyoufif为了适应android6.0而对推出的新的版本。由于xutils3是基于URLConnection的，因此改动比较大，而需要升级版本的可能有些麻烦。<a href="https://github.com/wyouflf/xUtils3" target="_blank" rel="external">详情查看</a>。由于我主要使用了上传文件模块，因此本篇文章我就主要介绍上传文件，其他模块有时间在介绍。</p>
+<h3 id="2、xutils3上传单个文件（图片）">2、xutils3上传单个文件（图片）</h3><p>　　首先要使用xutils3的话，需要现在application里面进行初始化，否则会报<strong> 空指针异常 </strong>，初始化代码如下：</p>
+<pre><code>public <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Application</span> {</span>
+<span class="annotation">@Override</span>
+public void onCreate() {
+    <span class="keyword">super</span>.onCreate();
+    <span class="comment">//初始化xutils3</span>
+    x.<span class="type">Ext</span>.init(<span class="keyword">this</span>);
+    x.<span class="type">Ext</span>.setDebug(<span class="literal">true</span>); <span class="comment">// 是否输出debug日志，这句代码可以不要</span>
+    }
+}
+</code></pre><p>　　这样我们就能开始使用xutils3，下面就可以开始实现上传单个图片。其实在xutils3.x里面上传图片很简单，就是将通过路径找到文件，然后通过xutils3封装的类传递过去进行了。下面让我们来看单图上传关键代码：</p>
+<pre><code><span class="comment">//这里的URLUtils.UPLOAD_IMG就是我们要访问的路径</span>
+RequestParams <span class="keyword">params</span> = <span class="keyword">new</span> RequestParams(URLUtils.UPLOAD_IMG);
+<span class="comment">//设为true就是以表单形式上传，否则上传原始文件流</span>
+<span class="keyword">params</span>.setMultipart(<span class="keyword">true</span>);
+<span class="comment">//下面就是请求网络时传递的参数</span>
+<span class="comment">//params.addQueryStringParameter();</span>
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"photo"</span>, <span class="number">1</span> + <span class="string">""</span>);
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"uid"</span>, SharedPreferencesUtils.getString(ClipActivity.<span class="keyword">this</span>, <span class="string">"login_id"</span>));
+<span class="comment">//这里的第一个字段是随便写的，第二个参数是要传递的图盘或者文件，第三个参数是这个图片或者文件的后缀名（由于图片有后缀名因此就传为空）</span>
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"file"</span>, <span class="keyword">new</span> File(path), <span class="keyword">null</span>);
+</code></pre><h3 id="3、xutils3多图上传">3、xutils3多图上传</h3><p>　　在上面我们实现了单图上传，那么多图上传呢？就更简单了，再接再单图上传里面加个for循环就搞定。下面我们来看代码：</p>
+<pre><code>RequestParams <span class="keyword">params</span> = <span class="keyword">new</span> RequestParams(URLUtils.TEST_PAGER_UPLOAD);
+<span class="keyword">params</span>.setMultipart(<span class="keyword">true</span>);
+<span class="keyword">params</span>.addQueryStringParameter(<span class="string">"uid"</span>, SharedPreferencesUtils.getString(context, <span class="string">"login_id"</span>));
+<span class="keyword">params</span>.addQueryStringParameter(<span class="string">"tid"</span>, id);
+<span class="keyword">params</span>.addQueryStringParameter(<span class="string">"title"</span>, <span class="string">"试卷111"</span>);
+<span class="comment">//我这里限制的最多只能上传9张图片</span>
+<span class="keyword">if</span> (num &lt; <span class="number">10</span>) {
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++) {
+<span class="comment">//通过路径生成文件</span>
+File file = <span class="keyword">new</span> File(Bimp.tempSelectBitmap.<span class="keyword">get</span>(i).getPath_absolute());
+<span class="comment">//这里的第一个参数file是随便写的，第二个则是要上传的文件，第三个怎是文件的后缀名，当有后缀名时为空</span>
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"file"</span> + i, file, <span class="keyword">null</span>);
+    }
+}
+</code></pre><h3 id="4、其他">4、其他</h3><p>　　上面的代码就是我们通过xutils3来实现的方法。当然我们只是将这些参数传递到RequestParams这个实体内，然后通过发送请求就可以了。当然我们还可以对xutils3进一步封装，具体请看我的另外一篇博客<a href="/2015/11/18/volley/">Volley框架的使用</a>。上面代码经过了我的测试的。当然如果有错误之处还请读者指出来，谢谢。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　xutils是国内wyoufif大神写的一个牛逼的开源库，功能挺全面的（单图上传、批量上传（图片）文件、加载网路图片等）。但是xutils以前的版本是基于httpclient的，者本来对于android没什么影响的。但是谷歌偏偏在android6.0以后的版本删除了httpClient，这就让我们无法正确的使用xutils了，于是xutils的作者wyoufif在前不久对对xutils版本进行大量重构，从而推出xutils3.x版本。<a href="https://github.com/wyouflf/xUtils3">xutils3详情查看</a><br>]]>
+    
+    </summary>
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+      <category term="xutils3" scheme="http://yoursite.com/tags/xutils3/"/>
+    
+      <category term="上传图片" scheme="http://yoursite.com/tags/%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[21岁生日]]></title>
@@ -36,7 +95,7 @@
     <link href="http://yoursite.com/2015/11/18/volley/"/>
     <id>http://yoursite.com/2015/11/18/volley/</id>
     <published>2015-11-18T15:35:28.000Z</published>
-    <updated>2015-11-21T16:59:47.900Z</updated>
+    <updated>2015-11-27T13:39:29.520Z</updated>
     <content type="html"><![CDATA[<p>　　Volley是谷歌在2013年IO大会上发布的能使网络通信更快，更简单，更健壮的android平台网络通信库，特别适合数据量不大但是通信频繁的场景。但是如果对于大数据（large payloads ），流媒体等就有些不实用，望读者能够正确的使用Volley.<br>　　<img src="http://7xo589.com1.z0.glb.clouddn.com/20130702124537953.png" alt=""><br><a id="more"></a></p>
 <h3 id="1、Volley引入背景">1、Volley引入背景</h3><p>　　在android中，网络请求只有HttpURLConnection（Http协议）跟HTTPClient（Apache）两种最原生的请求方式。但是由于请求非常频繁且使用原始的方法进行网络请求非常麻烦，所有就有一些大神对这两种方式进行了封装，从而诞生可一些如xutils（xutils3支持6.0）、okHttp、AsyncHttpClient等一些开源库。但是这些开源库有一定的局限性并且包含的东西比较多（我个人观点）所有在网络请求频繁的应用场景就不是很好的适应，并且健壮性稍差一点。因此谷歌就在2013年IO大会上推出Volley开源库（由于是官方推出的，所有我就喜欢用Volley）来更好、更快的来实现网络请求。</p>
 <h3 id="2、Volley功能简介">2、Volley功能简介</h3><p>　　简单的来讲，Volley提供了如下功能：</p>
@@ -174,6 +233,8 @@ requestQueue<span class="built_in">.</span>start();
       <category term="android" scheme="http://yoursite.com/tags/android/"/>
     
       <category term="volley" scheme="http://yoursite.com/tags/volley/"/>
+    
+      <category term="网络请求" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/"/>
     
   </entry>
   

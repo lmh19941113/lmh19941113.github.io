@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>xutils3上传图片 | 默默的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="xutils是国内wyoufif大神写的一个牛逼的开源库，功能挺全面的（单图上传、批量上传（图片）文件、加载网路图片等）。但是xutils以前的版本是基于httpclient的，者本来对于android没什么影响的。但是谷歌偏偏在android6.0以后的版本删除了httpClient，这就让我们无法正确的使用xutils了，于是xutils的作者wyoufif在前不久对对xutils版本进行大量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xutils3上传图片">
+<meta property="og:url" content="http://yoursite.com/2015/11/27/xutils3/index.html">
+<meta property="og:site_name" content="默默的博客">
+<meta property="og:description" content="xutils是国内wyoufif大神写的一个牛逼的开源库，功能挺全面的（单图上传、批量上传（图片）文件、加载网路图片等）。但是xutils以前的版本是基于httpclient的，者本来对于android没什么影响的。但是谷歌偏偏在android6.0以后的版本删除了httpClient，这就让我们无法正确的使用xutils了，于是xutils的作者wyoufif在前不久对对xutils版本进行大量">
+<meta property="og:updated_time" content="2015-11-28T06:03:08.856Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="xutils3上传图片">
+<meta name="twitter:description" content="xutils是国内wyoufif大神写的一个牛逼的开源库，功能挺全面的（单图上传、批量上传（图片）文件、加载网路图片等）。但是xutils以前的版本是基于httpclient的，者本来对于android没什么影响的。但是谷歌偏偏在android6.0以后的版本删除了httpClient，这就让我们无法正确的使用xutils了，于是xutils的作者wyoufif在前不久对对xutils版本进行大量">
+  
+    <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xo589.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">默默</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">快乐的逗比程序员</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+							<li><a href="/gallery">相册</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="/#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">默默</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xo589.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">默默</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">快乐的逗比程序员</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+					<li><a href="/gallery">相册</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="/#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-xutils3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/27/xutils3/" class="article-date">
+  	<time datetime="2015-11-27T13:32:59.000Z" itemprop="datePublished">2015-11-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      xutils3上传图片
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xutils3/">xutils3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/上传图片/">上传图片</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　xutils是国内wyoufif大神写的一个牛逼的开源库，功能挺全面的（单图上传、批量上传（图片）文件、加载网路图片等）。但是xutils以前的版本是基于httpclient的，者本来对于android没什么影响的。但是谷歌偏偏在android6.0以后的版本删除了httpClient，这就让我们无法正确的使用xutils了，于是xutils的作者wyoufif在前不久对对xutils版本进行大量重构，从而推出xutils3.x版本。<a href="https://github.com/wyouflf/xUtils3" target="_blank" rel="external">xutils3详情查看</a><br><a id="more"></a></p>
+<h3 id="1、xutils3简介">1、xutils3简介</h3><p>　　xutils3是作者wyoufif为了适应android6.0而对推出的新的版本。由于xutils3是基于URLConnection的，因此改动比较大，而需要升级版本的可能有些麻烦。<a href="https://github.com/wyouflf/xUtils3" target="_blank" rel="external">详情查看</a>。由于我主要使用了上传文件模块，因此本篇文章我就主要介绍上传文件，其他模块有时间在介绍。</p>
+<h3 id="2、xutils3上传单个文件（图片）">2、xutils3上传单个文件（图片）</h3><p>　　首先要使用xutils3的话，需要现在application里面进行初始化，否则会报<strong> 空指针异常 </strong>，初始化代码如下：</p>
+<pre><code>public <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Application</span> {</span>
+<span class="annotation">@Override</span>
+public void onCreate() {
+    <span class="keyword">super</span>.onCreate();
+    <span class="comment">//初始化xutils3</span>
+    x.<span class="type">Ext</span>.init(<span class="keyword">this</span>);
+    x.<span class="type">Ext</span>.setDebug(<span class="literal">true</span>); <span class="comment">// 是否输出debug日志，这句代码可以不要</span>
+    }
+}
+</code></pre><p>　　这样我们就能开始使用xutils3，下面就可以开始实现上传单个图片。其实在xutils3.x里面上传图片很简单，就是将通过路径找到文件，然后通过xutils3封装的类传递过去进行了。下面让我们来看单图上传关键代码：</p>
+<pre><code><span class="comment">//这里的URLUtils.UPLOAD_IMG就是我们要访问的路径</span>
+RequestParams <span class="keyword">params</span> = <span class="keyword">new</span> RequestParams(URLUtils.UPLOAD_IMG);
+<span class="comment">//设为true就是以表单形式上传，否则上传原始文件流</span>
+<span class="keyword">params</span>.setMultipart(<span class="keyword">true</span>);
+<span class="comment">//下面就是请求网络时传递的参数</span>
+<span class="comment">//params.addQueryStringParameter();</span>
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"photo"</span>, <span class="number">1</span> + <span class="string">""</span>);
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"uid"</span>, SharedPreferencesUtils.getString(ClipActivity.<span class="keyword">this</span>, <span class="string">"login_id"</span>));
+<span class="comment">//这里的第一个字段是随便写的，第二个参数是要传递的图盘或者文件，第三个参数是这个图片或者文件的后缀名（由于图片有后缀名因此就传为空）</span>
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"file"</span>, <span class="keyword">new</span> File(path), <span class="keyword">null</span>);
+</code></pre><h3 id="3、xutils3多图上传">3、xutils3多图上传</h3><p>　　在上面我们实现了单图上传，那么多图上传呢？就更简单了，再接再单图上传里面加个for循环就搞定。下面我们来看代码：</p>
+<pre><code>RequestParams <span class="keyword">params</span> = <span class="keyword">new</span> RequestParams(URLUtils.TEST_PAGER_UPLOAD);
+<span class="keyword">params</span>.setMultipart(<span class="keyword">true</span>);
+<span class="keyword">params</span>.addQueryStringParameter(<span class="string">"uid"</span>, SharedPreferencesUtils.getString(context, <span class="string">"login_id"</span>));
+<span class="keyword">params</span>.addQueryStringParameter(<span class="string">"tid"</span>, id);
+<span class="keyword">params</span>.addQueryStringParameter(<span class="string">"title"</span>, <span class="string">"试卷111"</span>);
+<span class="comment">//我这里限制的最多只能上传9张图片</span>
+<span class="keyword">if</span> (num &lt; <span class="number">10</span>) {
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++) {
+<span class="comment">//通过路径生成文件</span>
+File file = <span class="keyword">new</span> File(Bimp.tempSelectBitmap.<span class="keyword">get</span>(i).getPath_absolute());
+<span class="comment">//这里的第一个参数file是随便写的，第二个则是要上传的文件，第三个怎是文件的后缀名，当有后缀名时为空</span>
+<span class="keyword">params</span>.addBodyParameter(<span class="string">"file"</span> + i, file, <span class="keyword">null</span>);
+    }
+}
+</code></pre><h3 id="4、其他">4、其他</h3><p>　　上面的代码就是我们通过xutils3来实现的方法。当然我们只是将这些参数传递到RequestParams这个实体内，然后通过发送请求就可以了。当然我们还可以对xutils3进一步封装，具体请看我的另外一篇博客<a href="/2015/11/18/volley/">Volley框架的使用</a>。上面代码经过了我的测试的。当然如果有错误之处还请读者指出来，谢谢。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/22/twenty_one_birthday/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">21岁生日</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="xutils3" data-title="xutils3上传图片" data-url="http://yoursite.com/2015/11/27/xutils3/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 默默
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
