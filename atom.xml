@@ -4,7 +4,7 @@
   <subtitle><![CDATA[快乐的逗比程序员]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-11-28T06:03:08.856Z</updated>
+  <updated>2015-11-28T15:05:18.375Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,70 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[MD5浅谈]]></title>
+    <link href="http://yoursite.com/2015/11/28/MD5-encryption/"/>
+    <id>http://yoursite.com/2015/11/28/MD5-encryption/</id>
+    <published>2015-11-28T14:00:08.000Z</published>
+    <updated>2015-11-28T15:05:18.375Z</updated>
+    <content type="html"><![CDATA[<p>　　message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。并且md5是不可逆的，也就是没有对应的算法，从生产的md5值逆向得到原始数据（暴力破解另当别论）。<br><a id="more"></a></p>
+<h3 id="1、MD5的实现">1、MD5的实现</h3><p>　　其实实现MD5的原理其实很简单，就是将要进行MD5处理的内容转换成二进制，然后获取低八位并转换成十六进制就完成了，具体代码如下：</p>
+<pre><code><span class="keyword">try</span> {
+        MessageDigest instance = MessageDigest.getInstance(<span class="string">"MD5"</span>);<span class="comment">// 获取MD5算法对象</span>
+        <span class="built_in">byte</span>[] digest = instance.digest(password.getBytes());<span class="comment">// 对字符串加密,返回字节数组，password.getBytes()就是要进行MD5处理的内容</span>
+
+        StringBuffer sb = <span class="keyword">new</span> StringBuffer();
+        <span class="keyword">for</span> (<span class="built_in">byte</span> b : digest) {
+            <span class="built_in">int</span> i = b &amp; <span class="number">0xff</span>;<span class="comment">// 获取字节的低八位有效值</span>
+            <span class="keyword">String</span> hexString = Integer.toHexString(i);<span class="comment">// 将整数转为16进制</span>
+            <span class="comment">// System.out.println(hexString);</span>
+
+            <span class="keyword">if</span> (hexString.length() &lt; <span class="number">2</span>) {
+                hexString = <span class="string">"0"</span> + hexString;<span class="comment">// 如果是1位的话,补0</span>
+            }
+
+            sb.<span class="built_in">append</span>(hexString);<span class="comment">//生成MD5码</span>
+        }
+
+        System.out.<span class="built_in">println</span>(<span class="string">"md5:"</span> + sb.toString());
+        System.out.<span class="built_in">println</span>(<span class="string">"md5 length:"</span> + sb.toString().length());<span class="comment">//Md5都是32位</span>
+
+    } <span class="keyword">catch</span> (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+        <span class="comment">// 没有该算法时,抛出异常, 不会走到这里</span>
+    }
+</code></pre><h3 id="2、MD5加盐处理">2、MD5加盐处理</h3><p>　　通过上面的代码我们就可以进行MD5处理了，但是由于MD5还是可以破解的，并且一个MD5值可能对应多个原始数据，因此当有人破解一个MD5值时，会把相同MD5值得所有原始内容获取到。因此在进行MD5处理时会进行”加盐处理”，具体来说就是在原有材料（用户自定义密码）中加入其它成分（一般是用户自有且不变的因素），以此来增加系统复杂度。当这种盐和用户密码相结合后，再通过摘要处理，就能得到隐蔽性更强的摘要值。代码如下：</p>
+<pre><code>byte<span class="string">[]</span> digest = instance.digest((username+password).getBytes());//  这里的username就是<span class="string">"盐"</span>，这样就更加不易破解
+</code></pre><h3 id="3、其他">3、其他</h3><p>　　如果觉得一次MD5处理不够的话，可以将得到的MD5值再次进行处理，这样就能得到隐蔽性更强的MD5值。<br>　　<strong> 如有不正之处，请指出，谢谢。 </strong></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。并且md5是不可逆的，也就是没有对应的算法，从生产的md5值逆向得到原始数据（暴力破解另当别论）。<br>]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="MD5" scheme="http://yoursite.com/tags/MD5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[ListView下拉刷新跟上拉加载的实现]]></title>
+    <link href="http://yoursite.com/2015/11/28/listview-refresh/"/>
+    <id>http://yoursite.com/2015/11/28/listview-refresh/</id>
+    <published>2015-11-28T06:18:02.000Z</published>
+    <updated>2015-11-28T06:19:24.175Z</updated>
+    <content type="html"></content>
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="ListView下拉刷新跟上拉加载" scheme="http://yoursite.com/tags/ListView%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0%E8%B7%9F%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD/"/>
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[xutils3上传图片]]></title>

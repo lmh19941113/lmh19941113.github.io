@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2015/11/28/MD5-encryption/</loc>
+    <lastmod>2015-11-28T15:05:18.375Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/11/28/listview-refresh/</loc>
+    <lastmod>2015-11-28T06:19:24.175Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2015/11/27/xutils3/</loc>
     <lastmod>2015-11-28T06:03:08.856Z</lastmod>
   </url>
