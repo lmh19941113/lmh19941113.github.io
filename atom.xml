@@ -4,7 +4,7 @@
   <subtitle><![CDATA[快乐的逗比程序员]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-11-28T15:05:18.375Z</updated>
+  <updated>2015-12-02T14:27:34.916Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,11 +15,188 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[android引导页的实现]]></title>
+    <link href="http://yoursite.com/2015/12/02/guide-page/"/>
+    <id>http://yoursite.com/2015/12/02/guide-page/</id>
+    <published>2015-12-02T14:00:49.000Z</published>
+    <updated>2015-12-02T14:27:34.916Z</updated>
+    <content type="html"><![CDATA[<p>　　在第一次进入某些APP时，会有一个引导页面来告诉用户该怎么操作这个APP。而其中有些的引导页实现了这样一个功能，不知道有些人注意没，就是当我们手指滑动引导页时，引导页下面的小圆点也会随着手指滑动。关于这个功能我想有很多人都是用一些开源库写的（说实话，我不是很喜欢用一些开源库，虽然效率很高，但是对自己技术的提升不是很大，除非完全弄懂源码），而在这里我就教大家怎么来实现。<br><a id="more"></a></p>
+<hr>
+<p>　　首先我来说一下原理，其实实现是很简单的，因为引导页本身就是viewpager,所有我们只需要从后台获取到图片路径并加载到viewpager就行。至于下面的小圆点就是根据shape这个xml来实现。废话不多说直接上代码：<br>　　我们先来看xml代码：</p>
+<pre><code><span class="tag">&lt;<span class="title">RelativeLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">xmlns:tools</span>=<span class="value">"http://schemas.android.com/tools"</span>
+<span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span> &gt;</span>
+<span class="comment">&lt;!---viewpager--&gt;</span>
+<span class="tag">&lt;<span class="title">android.support.v4.view.ViewPager</span>
+    <span class="attribute">android:id</span>=<span class="value">"@+id/vp_guide"</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">RelativeLayout</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_alignParentBottom</span>=<span class="value">"true"</span>
+    <span class="attribute">android:layout_centerHorizontal</span>=<span class="value">"true"</span>
+    <span class="attribute">android:layout_marginBottom</span>=<span class="value">"20dp"</span> &gt;</span>
+    <span class="comment">&lt;!--装小圆点的布局--&gt;</span>
+    <span class="tag">&lt;<span class="title">LinearLayout</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/ll_point_group"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:orientation</span>=<span class="value">"horizontal"</span> &gt;</span>
+    <span class="tag">&lt;/<span class="title">LinearLayout</span>&gt;</span>
+    <span class="comment">&lt;!--滑动的小圆点--&gt;</span>
+    <span class="tag">&lt;<span class="title">View</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/view_red_point"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"10dp"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"10dp"</span>
+        <span class="attribute">android:background</span>=<span class="value">"@drawable/shape_point_red"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span>
+</code></pre><p></p>
+<p>　　我相信上面的代码都能看懂吧，如果不懂的话…<br>　　既然布局写好了，那么就来看小圆点的绘制的代码：</p>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">shape</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:shape</span>=<span class="value">"oval"</span> &gt;</span>
+<span class="comment">&lt;!--android:shape="oval"就是代表绘制的是小圆点，这里也可以绘制其他图像，如圆环等--&gt;</span>
+<span class="comment">&lt;!--下面表示小圆点的颜色--&gt;</span>
+<span class="tag">&lt;<span class="title">solid</span> <span class="attribute">android:color</span>=<span class="value">"@android:color/darker_gray"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">shape</span>&gt;</span>
+</code></pre><p>　　就这样布局文件就好了，那么就让我们来看下面的具体实现代码：</p>
+<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">OnPageChangeListener</span> </span>{
+&lt;!--引导页图片--&gt;
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>[] mImageIds = <span class="keyword">new</span> <span class="keyword">int</span>[] { R.drawable.guide_1,
+        R.drawable.guide_2, R.drawable.guide_3 };
+
+<span class="keyword">private</span> ViewPager vpGuide;
+<span class="keyword">private</span> ArrayList&lt;ImageView&gt; mImageViewList;
+
+<span class="keyword">private</span> LinearLayout llPointGroup;<span class="comment">// 引导圆点的父控件</span>
+
+<span class="keyword">private</span> <span class="keyword">int</span> mPointWidth;<span class="comment">// 圆点间的距离</span>
+
+<span class="keyword">private</span> View viewRedPoint;<span class="comment">// 小红点</span>
+
+<span class="annotation">@Override</span>
+<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
+    <span class="keyword">super</span>.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    vpGuide = (ViewPager) findViewById(R.id.vp_guide);
+    llPointGroup = (LinearLayout) findViewById(R.id.ll_point_group);
+    viewRedPoint = findViewById(R.id.view_red_point);
+    initViews();
+    vpGuide.setAdapter(<span class="keyword">new</span> GuideAdapter());
+    vpGuide.setOnPageChangeListener(<span class="keyword">this</span>);
+}
+
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initViews</span><span class="params">()</span> </span>{
+    mImageViewList = <span class="keyword">new</span> ArrayList&lt;ImageView&gt;();
+
+    <span class="comment">// 初始化引导页的3个页面</span>
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mImageIds.length; i++) {
+        ImageView image = <span class="keyword">new</span> ImageView(<span class="keyword">this</span>);
+        image.setBackgroundResource(mImageIds[i]);<span class="comment">// 设置引导页背景</span>
+        mImageViewList.add(image);
+    }
+
+    <span class="comment">// 初始化引导页的小圆点</span>
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mImageIds.length; i++) {
+        View point = <span class="keyword">new</span> View(<span class="keyword">this</span>);
+        point.setBackgroundResource(R.drawable.shape_point_gray);<span class="comment">// 设置引导页默认圆点</span>
+
+        LinearLayout.LayoutParams params = <span class="keyword">new</span> LinearLayout.LayoutParams(
+                <span class="number">30</span>, <span class="number">30</span>);
+        <span class="keyword">if</span> (i &gt; <span class="number">0</span>) {
+            params.leftMargin = <span class="number">10</span>;<span class="comment">// 设置圆点间隔</span>
+        }
+
+        point.setLayoutParams(params);<span class="comment">// 设置圆点的大小</span>
+
+        llPointGroup.addView(point);<span class="comment">// 将圆点添加给线性布局</span>
+    }
+    <span class="comment">//界面绘制是要调用measure():测量，layout():界面位置，onDraw():绘制三个方法</span>
+    <span class="comment">// 得到两个小灰点之间的间距(这里拿到的是0，因为在oncreate()方法里，界面还没绘制完成)</span>
+<span class="comment">//        mPointWidth = llPointGroup.getChildAt(1).getLeft()</span>
+<span class="comment">//                - llPointGroup.getChildAt(0).getLeft();</span>
+    <span class="comment">//获取到视图树（观察者模式）</span>
+    llPointGroup.getViewTreeObserver().addOnGlobalLayoutListener(<span class="keyword">new</span> OnGlobalLayoutListener() {
+        <span class="comment">//当调用layout()方法结束后调用此方法</span>
+        <span class="annotation">@Override</span>
+        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span><span class="params">()</span> </span>{
+            <span class="comment">//已过时，</span>
+            llPointGroup.getViewTreeObserver().removeGlobalOnLayoutListener(<span class="keyword">this</span>);
+            <span class="comment">//最新的，但是最低兼容貌似是14</span>
+            <span class="comment">//llPointGroup.getViewTreeObserver().removeOnGlobalLayoutListener(this);</span>
+            mPointWidth = llPointGroup.getChildAt(<span class="number">1</span>).getLeft()
+                    - llPointGroup.getChildAt(<span class="number">0</span>).getLeft();
+        }
+    });
+}
+
+<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">GuideAdapter</span> <span class="keyword">extends</span> <span class="title">PagerAdapter</span> </span>{
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>{
+        <span class="keyword">return</span> mImageIds.length;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isViewFromObject</span><span class="params">(View arg0, Object arg1)</span> </span>{
+        <span class="keyword">return</span> arg0 == arg1;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position)</span> </span>{
+        container.addView(mImageViewList.get(position));
+        <span class="keyword">return</span> mImageViewList.get(position);
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroyItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position, Object object)</span> </span>{
+        container.removeView((View) object);
+    }
+
+}
+
+<span class="annotation">@Override</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrollStateChanged</span><span class="params">(<span class="keyword">int</span> arg0)</span> </span>{
+}
+
+<span class="comment">// 第二个参数是viewpager滑动的百分比</span>
+<span class="annotation">@Override</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrolled</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">float</span> positionOffset,
+        <span class="keyword">int</span> positionOffsetPixels)</span> </span>{
+    <span class="comment">// System.out.println("当前位置:" + position + ";百分比:" + positionOffset</span>
+    <span class="comment">// + ";移动距离:" + positionOffsetPixels);</span>
+    <span class="keyword">int</span> len=(<span class="keyword">int</span>) (positionOffset*mPointWidth)+position*mPointWidth;
+    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewRedPoint
+            .getLayoutParams();<span class="comment">// 获取当前红点的布局参数</span>
+    params.leftMargin = len;<span class="comment">// 设置左边距</span>
+
+    viewRedPoint.setLayoutParams(params);<span class="comment">// 重新给小红点设置布局参数</span>
+}
+
+<span class="annotation">@Override</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> arg0)</span> </span>{
+}
+}
+</code></pre><p>　　这样就实现了引导页下面的小圆点随着手指的滑动而滑动了。由于我暂不会gif动画的制作，因此就没有效果图。有误的地方希望大家指出，谢谢。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　在第一次进入某些APP时，会有一个引导页面来告诉用户该怎么操作这个APP。而其中有些的引导页实现了这样一个功能，不知道有些人注意没，就是当我们手指滑动引导页时，引导页下面的小圆点也会随着手指滑动。关于这个功能我想有很多人都是用一些开源库写的（说实话，我不是很喜欢用一些开源库，虽然效率很高，但是对自己技术的提升不是很大，除非完全弄懂源码），而在这里我就教大家怎么来实现。<br>]]>
+    
+    </summary>
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[MD5浅谈]]></title>
     <link href="http://yoursite.com/2015/11/28/MD5-encryption/"/>
     <id>http://yoursite.com/2015/11/28/MD5-encryption/</id>
     <published>2015-11-28T14:00:08.000Z</published>
-    <updated>2015-11-28T15:05:18.375Z</updated>
+    <updated>2015-12-02T14:33:25.435Z</updated>
     <content type="html"><![CDATA[<p>　　message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。并且md5是不可逆的，也就是没有对应的算法，从生产的md5值逆向得到原始数据（暴力破解另当别论）。<br><a id="more"></a></p>
 <h3 id="1、MD5的实现">1、MD5的实现</h3><p>　　其实实现MD5的原理其实很简单，就是将要进行MD5处理的内容转换成二进制，然后获取低八位并转换成十六进制就完成了，具体代码如下：</p>
 <pre><code><span class="keyword">try</span> {
@@ -48,7 +225,7 @@
     }
 </code></pre><h3 id="2、MD5加盐处理">2、MD5加盐处理</h3><p>　　通过上面的代码我们就可以进行MD5处理了，但是由于MD5还是可以破解的，并且一个MD5值可能对应多个原始数据，因此当有人破解一个MD5值时，会把相同MD5值得所有原始内容获取到。因此在进行MD5处理时会进行”加盐处理”，具体来说就是在原有材料（用户自定义密码）中加入其它成分（一般是用户自有且不变的因素），以此来增加系统复杂度。当这种盐和用户密码相结合后，再通过摘要处理，就能得到隐蔽性更强的摘要值。代码如下：</p>
 <pre><code>byte<span class="string">[]</span> digest = instance.digest((username+password).getBytes());//  这里的username就是<span class="string">"盐"</span>，这样就更加不易破解
-</code></pre><h3 id="3、其他">3、其他</h3><p>　　如果觉得一次MD5处理不够的话，可以将得到的MD5值再次进行处理，这样就能得到隐蔽性更强的MD5值。<br>　　<strong> 如有不正之处，请指出，谢谢。 </strong></p>
+</code></pre><h3 id="3、其他">3、其他</h3><p>　　如果觉得一次MD5处理不够的话，可以将得到的MD5值再次进行处理，这样就能得到隐蔽性更强的MD5值。但是如果有人要查询MD5值怎么办呢？我这里给大家推荐个网站可以查询MD5值<a href="http://www.cmd5.com/" target="_blank" rel="external">http://www.cmd5.com/</a>。在这里或许有人说MD5是不可逆的，怎么还能查询？其实这个网站的原理是将MD5值存在数据库里的，然后在将你传的MD5值拿去比对从而达到对MD5的解密。<br>　　<strong> 如有不正之处，请指出，谢谢。 </strong></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>　　message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。并且md5是不可逆的，也就是没有对应的算法，从生产的md5值逆向得到原始数据（暴力破解另当别论）。<br>]]>
