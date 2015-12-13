@@ -5,16 +5,16 @@
   
   <title>ListView下拉刷新跟上拉加载的实现 | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="陌生人勿扰">
+  <meta name="description" content="下拉刷新跟上拉加载这两个功能我相信在android开发中用的很多，毕竟这两个功能在增强用户体验，也解决了很多开发问题。但是我相信这两个功能的实现恐怕不好实现吧（针对很多新手来说），于是就有很多开源库比如Android-PullToRefresh、谷歌自己推出的SwipeRefreshLayout等开源库。但是由于我认为自己造轮子对自己的技术提升比较好，因此我自己也写了一个针对listView的下拉">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ListView下拉刷新跟上拉加载的实现">
 <meta property="og:url" content="http://yoursite.com/2015/11/28/listview-refresh/index.html">
 <meta property="og:site_name" content="默默的博客">
-<meta property="og:description" content="陌生人勿扰">
-<meta property="og:updated_time" content="2015-11-28T06:19:24.175Z">
+<meta property="og:description" content="下拉刷新跟上拉加载这两个功能我相信在android开发中用的很多，毕竟这两个功能在增强用户体验，也解决了很多开发问题。但是我相信这两个功能的实现恐怕不好实现吧（针对很多新手来说），于是就有很多开源库比如Android-PullToRefresh、谷歌自己推出的SwipeRefreshLayout等开源库。但是由于我认为自己造轮子对自己的技术提升比较好，因此我自己也写了一个针对listView的下拉">
+<meta property="og:updated_time" content="2015-12-06T12:36:41.125Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ListView下拉刷新跟上拉加载的实现">
-<meta name="twitter:description" content="陌生人勿扰">
+<meta name="twitter:description" content="下拉刷新跟上拉加载这两个功能我相信在android开发中用的很多，毕竟这两个功能在增强用户体验，也解决了很多开发问题。但是我相信这两个功能的实现恐怕不好实现吧（针对很多新手来说），于是就有很多开源库比如Android-PullToRefresh、谷歌自己推出的SwipeRefreshLayout等开源库。但是由于我认为自己造轮子对自己的技术提升比较好，因此我自己也写了一个针对listView的下拉">
   
     <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
   
@@ -112,7 +112,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
+						<a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/三级缓存/" style="font-size: 10px;">三级缓存</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/加载图片/" style="font-size: 10px;">加载图片</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/随笔/" style="font-size: 10px;">随笔</a>
 					</div>
 				</section>
 				
@@ -215,7 +215,362 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>　　下拉刷新跟上拉加载这两个功能我相信在android开发中用的很多，毕竟这两个功能在增强用户体验，也解决了很多开发问题。但是我相信这两个功能的实现恐怕不好实现吧（针对很多新手来说），于是就有很多开源库比如<a href="https://github.com/chrisbanes/Android-PullToRefresh" target="_blank" rel="external">Android-PullToRefresh</a>、谷歌自己推出的SwipeRefreshLayout等开源库。但是由于我认为自己造轮子对自己的技术提升比较好，因此我自己也写了一个针对listView的下拉刷新跟上拉加载。<br><a id="more"></a></p>
+<hr>
+<p>　　首先我们先来说说实现的原理，首先我们先把刷新部分的布局写好，让他通过ListView的addHeaderView(View)方法填到头部（ListView的addHeaderView(View)可以添加多个。上拉加载是用addFooterView(View)方法），然后将这个布局隐藏，随着手指的滑动二显示并且进行相应的状态变化。<br>　　上面说了实现原理，那么下面就来实现，首先我们先写好下拉刷新部分的布局refresh_header.xml：</p>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">LinearLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:orientation</span>=<span class="value">"horizontal"</span> &gt;</span>
+
+<span class="tag">&lt;<span class="title">FrameLayout</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:padding</span>=<span class="value">"10dp"</span> &gt;</span>
+
+    <span class="tag">&lt;<span class="title">ImageView</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/iv_arr"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+        <span class="attribute">android:src</span>=<span class="value">"@drawable/common_listview_headview_red_arrow"</span> /&gt;</span>
+
+    <span class="tag">&lt;<span class="title">ProgressBar</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/pb_progress"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+        <span class="attribute">android:visibility</span>=<span class="value">"invisible"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">FrameLayout</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">LinearLayout</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>
+    <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:orientation</span>=<span class="value">"vertical"</span> &gt;</span>
+
+    <span class="tag">&lt;<span class="title">TextView</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/tv_title"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:text</span>=<span class="value">"下拉刷新"</span>
+        <span class="attribute">android:textColor</span>=<span class="value">"#f00"</span>
+        <span class="attribute">android:textSize</span>=<span class="value">"16sp"</span> /&gt;</span>
+
+    <span class="tag">&lt;<span class="title">TextView</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/tv_time"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_marginTop</span>=<span class="value">"5dp"</span>
+        <span class="attribute">android:text</span>=<span class="value">"最后刷新时间:2015-03-10 17:07:07"</span>
+        <span class="attribute">android:textColor</span>=<span class="value">"@android:color/darker_gray"</span>
+        <span class="attribute">android:textSize</span>=<span class="value">"14sp"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">LinearLayout</span>&gt;</span>
+</code></pre><p></p>
+<p>　　这样下拉部分的布局就写好了，然后我们再来写上拉加载的布局，创建一个名为refresh_listview_footer的上拉加载的布局文件，代码如下：</p>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">LinearLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="attribute">android:gravity</span>=<span class="value">"center"</span>
+<span class="attribute">android:orientation</span>=<span class="value">"horizontal"</span> &gt;</span>
+
+<span class="tag">&lt;<span class="title">ProgressBar</span>
+    <span class="attribute">android:id</span>=<span class="value">"@+id/pb_pull_list_header"</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:layout_margin</span>=<span class="value">"5dp"</span>
+    <span class="attribute">android:indeterminateDrawable</span>=<span class="value">"@drawable/custom_progress"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">TextView</span>
+    <span class="attribute">android:id</span>=<span class="value">"@+id/tv_pull_list_header_title"</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:text</span>=<span class="value">"加载中..."</span>
+    <span class="attribute">android:textColor</span>=<span class="value">"#ff0000"</span>
+    <span class="attribute">android:textSize</span>=<span class="value">"18sp"</span> /&gt;</span>
+</code></pre><p></p>
+<p>　　这样我们就把布局写好了，然后我们就将布局加到ListView里面去，这里要加到ListView里面去则需要重写ListView，下面我们就来创建一个继承与ListView的RefreshListView类：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> RefreshListView extends ListView implements OnScrollListener,
+    android.widget.AdapterView.OnItemClickListener {
+
+
+<span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> STATE_PULL_REFRESH = <span class="number">0</span>;<span class="comment">// 下拉刷新</span>
+<span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> STATE_RELEASE_REFRESH = <span class="number">1</span>;<span class="comment">// 松开刷新</span>
+<span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> STATE_REFRESHING = <span class="number">2</span>;<span class="comment">// 正在刷新</span>
+
+<span class="keyword">private</span> <span class="keyword">int</span> mCurrrentState = STATE_PULL_REFRESH;<span class="comment">// 当前状态</span>
+
+<span class="keyword">private</span> TextView tvTitle;
+<span class="keyword">private</span> TextView tvTime;
+<span class="keyword">private</span> ImageView ivArrow;
+<span class="keyword">private</span> ProgressBar pbProgress;
+<span class="keyword">private</span> View mHeaderView;
+<span class="keyword">private</span> <span class="keyword">int</span> startY = -<span class="number">1</span>;
+<span class="keyword">private</span> <span class="keyword">int</span> mHeaderViewHeight;
+<span class="keyword">private</span> RotateAnimation animUp;
+<span class="keyword">private</span> RotateAnimation animDown;
+<span class="keyword">private</span> View mFooterView;
+<span class="keyword">private</span> <span class="keyword">int</span> mFooterViewHeight;
+
+<span class="function"><span class="keyword">public</span> <span class="title">RefreshListView</span><span class="params">(Context context)</span> </span>{
+    super(context);
+    initHeaderView();
+}
+
+<span class="function"><span class="keyword">public</span> <span class="title">RefreshListView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{
+    super(context, attrs);
+    initHeaderView();
+}
+
+<span class="function"><span class="keyword">public</span> <span class="title">RefreshListView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>{
+    super(context, attrs, defStyle);
+    initHeaderView();
+}
+
+<span class="comment">//下面就是将下拉的布局添加到ListView中</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initHeaderView</span><span class="params">()</span> </span>{
+    mHeaderView = View.inflate(getContext(), R.layout.refresh_header, null);
+    <span class="comment">// 将下拉刷新的布局加到listView顶部</span>
+    <span class="keyword">this</span>.addHeaderView(mHeaderView);
+    tvTitle = (TextView) mHeaderView.findViewById(R.id.tv_title);
+    tvTime = (TextView) mHeaderView.findViewById(R.id.tv_time);
+    ivArrow = (ImageView) mHeaderView.findViewById(R.id.iv_arr);
+    pbProgress = (ProgressBar) mHeaderView.findViewById(R.id.pb_progress);
+    <span class="comment">// 下面两句代码就是将刷新显示的布局因隐藏</span>
+    mHeaderView.measure(<span class="number">0</span>, <span class="number">0</span>);
+    mHeaderViewHeight = mHeaderView.getMeasuredHeight();
+    mHeaderView.setPadding(<span class="number">0</span>, -mHeaderViewHeight, <span class="number">0</span>, <span class="number">0</span>);
+    initArrowAnim();
+}
+
+<span class="comment">/*
+ * 初始化脚布局，就上拉加载的布局添加到ListView里面去
+ */</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initFooterView</span><span class="params">()</span> </span>{
+    mFooterView = View.inflate(getContext(),
+            R.layout.refresh_listview_footer, null);
+    <span class="keyword">this</span>.addFooterView(mFooterView);
+
+    mFooterView.measure(<span class="number">0</span>, <span class="number">0</span>);
+    mFooterViewHeight = mFooterView.getMeasuredHeight();
+
+    mFooterView.setPadding(<span class="number">0</span>, -mFooterViewHeight, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 隐藏</span>
+
+    <span class="keyword">this</span>.setOnScrollListener(<span class="keyword">this</span>);
+}
+
+
+@<span class="function">Override
+<span class="keyword">public</span> boolean <span class="title">onTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>{
+    <span class="keyword">switch</span> (ev.getAction()) {
+    <span class="keyword">case</span> MotionEvent.ACTION_DOWN:
+        startY = (<span class="keyword">int</span>) ev.getRawY();
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:
+        <span class="keyword">int</span> endY = (<span class="keyword">int</span>) ev.getRawY();
+        <span class="keyword">if</span> (startY == -<span class="number">1</span>) {
+            <span class="comment">// break;</span>
+            startY = (<span class="keyword">int</span>) ev.getRawY();
+        }
+
+        <span class="keyword">if</span> (mCurrrentState == STATE_REFRESHING) {
+            <span class="keyword">break</span>;
+        }
+        <span class="keyword">int</span> dy = endY - startY;<span class="comment">// 移动偏移量</span>
+        <span class="keyword">if</span> (dy &gt; <span class="number">0</span> &amp;&amp; getFirstVisiblePosition() == <span class="number">0</span>) {
+            <span class="keyword">int</span> padding = dy - mHeaderViewHeight;<span class="comment">// 计算padding</span>
+            mHeaderView.setPadding(<span class="number">0</span>, padding, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 设置当前padding</span>
+            <span class="keyword">if</span> (padding &lt; <span class="number">0</span> &amp;&amp; mCurrrentState != STATE_PULL_REFRESH) {
+                mCurrrentState = STATE_PULL_REFRESH;
+                refreshState();
+            } <span class="keyword">else</span> <span class="keyword">if</span> (padding &gt; <span class="number">0</span>
+                    &amp;&amp; mCurrrentState != STATE_RELEASE_REFRESH) {
+                mCurrrentState = STATE_RELEASE_REFRESH;
+                refreshState();
+            }
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> MotionEvent.ACTION_UP:
+        <span class="comment">// mHeaderView.measure(0, 0);</span>
+        startY = -<span class="number">1</span>;<span class="comment">// 重置</span>
+        <span class="keyword">if</span> (mCurrrentState == STATE_PULL_REFRESH) {
+            mHeaderView.setPadding(<span class="number">0</span>, -mHeaderViewHeight, <span class="number">0</span>, <span class="number">0</span>);
+        } <span class="keyword">else</span> <span class="keyword">if</span> (mCurrrentState == STATE_RELEASE_REFRESH) {
+            mCurrrentState = STATE_REFRESHING;
+            mHeaderView.setPadding(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
+            refreshState();
+
+        }
+        <span class="keyword">break</span>;
+    }
+    <span class="keyword">return</span> super.onTouchEvent(ev);
+}
+
+<span class="comment">/*
+ * 刷新下拉控件的布局
+ */</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">refreshState</span><span class="params">()</span> </span>{
+    <span class="keyword">switch</span> (mCurrrentState) {
+    <span class="keyword">case</span> STATE_PULL_REFRESH:
+        tvTitle.setText(<span class="string">"下拉刷新"</span>);
+        ivArrow.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.INVISIBLE);
+        ivArrow.startAnimation(animDown);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> STATE_RELEASE_REFRESH:
+        tvTitle.setText(<span class="string">"松开刷新"</span>);
+        ivArrow.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.INVISIBLE);
+        ivArrow.startAnimation(animUp);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> STATE_REFRESHING:
+        tvTitle.setText(<span class="string">"正在刷新..."</span>);
+        ivArrow.clearAnimation();<span class="comment">// 必须先清除动画,才能隐藏</span>
+        ivArrow.setVisibility(View.INVISIBLE);
+        pbProgress.setVisibility(View.VISIBLE);
+
+        <span class="keyword">if</span> (listener != null) {
+            listener.onRefresh();
+        }
+        <span class="keyword">break</span>;
+    }
+}
+
+<span class="comment">/**
+ * 初始化箭头动画
+ */</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initArrowAnim</span><span class="params">()</span> </span>{
+    <span class="comment">// 箭头向上动画</span>
+    animUp = <span class="keyword">new</span> RotateAnimation(<span class="number">0</span>, -<span class="number">180</span>, Animation.RELATIVE_TO_SELF, <span class="number">0.5f</span>,
+            Animation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);
+    animUp.setDuration(<span class="number">200</span>);
+    animUp.setFillAfter(<span class="literal">true</span>);
+
+    <span class="comment">// 箭头向下动画</span>
+    animDown = <span class="keyword">new</span> RotateAnimation(-<span class="number">180</span>, <span class="number">0</span>, Animation.RELATIVE_TO_SELF,
+            <span class="number">0.5f</span>, Animation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);
+    animDown.setDuration(<span class="number">200</span>);
+    animDown.setFillAfter(<span class="literal">true</span>);
+
+}
+
+<span class="keyword">private</span> OnRefreshListener listener;
+
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnRefreshListener</span><span class="params">(OnRefreshListener listener)</span> </span>{
+    <span class="keyword">this</span>.listener = listener;
+}
+
+<span class="comment">//给外部调用的监听接口</span>
+<span class="keyword">public</span> interface OnRefreshListener {
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefresh</span><span class="params">()</span></span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadMore</span><span class="params">()</span></span>;<span class="comment">// 加载下一页数据</span>
+}
+
+<span class="comment">/*
+ * 收起下拉刷新及上垃加载的控件
+ */</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefreshComplete</span><span class="params">(boolean success)</span> </span>{
+    <span class="keyword">if</span> (isLoadingMore) {<span class="comment">// 正在加载更多...</span>
+        mFooterView.setPadding(<span class="number">0</span>, -mFooterViewHeight, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 隐藏脚布局</span>
+        isLoadingMore = <span class="literal">false</span>;
+    } <span class="keyword">else</span> {
+        <span class="keyword">if</span> (mCurrrentState == STATE_REFRESHING) {
+            mCurrrentState = STATE_PULL_REFRESH;
+            tvTitle.setText(<span class="string">"下拉刷新"</span>);
+            ivArrow.setVisibility(View.VISIBLE);
+            pbProgress.setVisibility(View.INVISIBLE);
+            mHeaderView.setPadding(<span class="number">0</span>, -mHeaderViewHeight, <span class="number">0</span>, <span class="number">0</span>);
+            <span class="keyword">if</span> (success) {
+                tvTime.setText(<span class="string">"最后刷新时间:"</span> + getCurrentTime());
+            }
+        }
+    }
+}
+
+<span class="comment">/**
+ * 获取当前时间
+ */</span>
+<span class="function"><span class="keyword">public</span> String <span class="title">getCurrentTime</span><span class="params">()</span> </span>{
+    SimpleDateFormat format = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);
+    <span class="keyword">return</span> format.format(<span class="keyword">new</span> Date());
+}
+
+<span class="keyword">private</span> boolean isLoadingMore;
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrollStateChanged</span><span class="params">(AbsListView view, <span class="keyword">int</span> scrollState)</span> </span>{
+    <span class="keyword">if</span> (scrollState == SCROLL_STATE_IDLE
+            || scrollState == SCROLL_STATE_FLING) {
+
+        <span class="keyword">if</span> (getLastVisiblePosition() == getCount() - <span class="number">1</span> &amp;&amp; !isLoadingMore) {<span class="comment">// 滑动到最后</span>
+            System.out.println(<span class="string">"到底了....."</span>);
+            mFooterView.setPadding(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 显示</span>
+            setSelection(getCount() - <span class="number">1</span>);<span class="comment">// 改变listview显示位置</span>
+
+            isLoadingMore = <span class="literal">true</span>;
+
+            <span class="keyword">if</span> (listener != null) {
+                listener.onLoadMore();
+            }
+        }
+    }
+}
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScroll</span><span class="params">(AbsListView view, <span class="keyword">int</span> firstVisibleItem,
+        <span class="keyword">int</span> visibleItemCount, <span class="keyword">int</span> totalItemCount)</span> </span>{
+
+}
+
+OnItemClickListener mItemClickListener;
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnItemClickListener</span><span class="params">(
+        android.widget.AdapterView.OnItemClickListener listener)</span> </span>{
+    super.setOnItemClickListener(<span class="keyword">this</span>);
+
+    mItemClickListener = listener;
+}
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(AdapterView&lt;?&gt; parent, View view, <span class="keyword">int</span> position,
+        <span class="keyword">long</span> id)</span> </span>{
+    <span class="keyword">if</span> (mItemClickListener != null) {
+        <span class="comment">//通过这样获得正确的id，不然的话我们得减去LiatView添加的头布局跟底布局</span>
+        mItemClickListener.onItemClick(parent, view, position
+                - getHeaderViewsCount(), id);
+    }
+}
+}
+</code></pre><p>　　这样我们就自己写好了一个实现了上拉加载跟下拉刷新的ListView。当然这里的ProgressBar控件可能有点丑，下面的代码可以给ProgressBar重新设置背景：</p>
+<pre><code><span class="xml"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">rotate</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:fromDegrees</span>=<span class="value">"0"</span>
+<span class="attribute">android:pivotX</span>=<span class="value">"50%"</span>
+<span class="attribute">android:pivotY</span>=<span class="value">"50%"</span>
+<span class="attribute">android:toDegrees</span>=<span class="value">"360"</span> &gt;</span>
+
+<span class="tag">&lt;<span class="title">shape</span>
+    &lt;!<span class="attribute">--</span>这个圆环半径是<span class="attribute">12dp--</span>&gt;</span>
+    android:innerRadius="12dp"
+    <span class="comment">&lt;!--生成一个圆环--&gt;</span>
+    android:shape="ring"
+    android:thickness="3dp"
+    android:useLevel="false" &gt;
+    <span class="tag">&lt;<span class="title">gradient</span>
+        <span class="attribute">android:centerColor</span>=<span class="value">"#3f00"</span>
+        <span class="attribute">android:endColor</span>=<span class="value">"#f00"</span>
+        <span class="attribute">android:startColor</span>=<span class="value">"#fff"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">shape</span>&gt;</span></span>
+</code></pre><p></p>
+<p>　　这样一个不错的能实现下拉刷新跟上拉加载的ListView就实现了。</p>
+
       
     </div>
     

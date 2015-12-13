@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MD5浅谈 | 默默的博客</title>
+  <title>我们是否应该自己“造轮子”？ | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。">
+  <meta name="description" content="谈谈自己对软件开发中“轮子”的一些看法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MD5浅谈">
-<meta property="og:url" content="http://yoursite.com/2015/11/28/MD5-encryption/index.html">
+<meta property="og:title" content="我们是否应该自己“造轮子”？">
+<meta property="og:url" content="http://yoursite.com/2015/12/12/frame-discussion/index.html">
 <meta property="og:site_name" content="默默的博客">
-<meta property="og:description" content="message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。">
-<meta property="og:updated_time" content="2015-12-02T14:33:25.435Z">
+<meta property="og:description" content="谈谈自己对软件开发中“轮子”的一些看法">
+<meta property="og:updated_time" content="2015-12-13T02:57:11.846Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MD5浅谈">
-<meta name="twitter:description" content="message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。">
+<meta name="twitter:title" content="我们是否应该自己“造轮子”？">
+<meta name="twitter:description" content="谈谈自己对软件开发中“轮子”的一些看法">
   
     <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
   
@@ -178,11 +178,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-MD5-encryption" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-frame-discussion" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/11/28/MD5-encryption/" class="article-date">
-  	<time datetime="2015-11-28T14:00:08.000Z" itemprop="datePublished">2015-11-28</time>
+      <a href="/2015/12/12/frame-discussion/" class="article-date">
+  	<time datetime="2015-12-12T02:22:54.000Z" itemprop="datePublished">2015-12-12</time>
 </a>
     </div>
   
@@ -195,7 +195,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      MD5浅谈
+      我们是否应该自己“造轮子”？
     </h1>
   
 
@@ -204,7 +204,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MD5/">MD5</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
 	</div>
 
         
@@ -215,35 +215,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>　　message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是它→信息-摘要算法。白话白话：md5，其实就是一中算法。可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度为128bit的串。这个串，基本上是唯一的（因为一个原始数据，只对应一个md5值；但是一个md5值，可能对应多个原始数据。所有不是绝对唯一的。因此也不能作为数据库的主键）。并且md5是不可逆的，也就是没有对应的算法，从生产的md5值逆向得到原始数据（暴力破解另当别论）。<br><a id="more"></a></p>
-<h3 id="1、MD5的实现">1、MD5的实现</h3><p>　　其实实现MD5的原理其实很简单，就是将要进行MD5处理的内容转换成二进制，然后获取低八位并转换成十六进制就完成了，具体代码如下：</p>
-<pre><code><span class="keyword">try</span> {
-        MessageDigest instance = MessageDigest.getInstance(<span class="string">"MD5"</span>);<span class="comment">// 获取MD5算法对象</span>
-        <span class="built_in">byte</span>[] digest = instance.digest(password.getBytes());<span class="comment">// 对字符串加密,返回字节数组，password.getBytes()就是要进行MD5处理的内容</span>
-
-        StringBuffer sb = <span class="keyword">new</span> StringBuffer();
-        <span class="keyword">for</span> (<span class="built_in">byte</span> b : digest) {
-            <span class="built_in">int</span> i = b &amp; <span class="number">0xff</span>;<span class="comment">// 获取字节的低八位有效值</span>
-            <span class="keyword">String</span> hexString = Integer.toHexString(i);<span class="comment">// 将整数转为16进制</span>
-            <span class="comment">// System.out.println(hexString);</span>
-
-            <span class="keyword">if</span> (hexString.length() &lt; <span class="number">2</span>) {
-                hexString = <span class="string">"0"</span> + hexString;<span class="comment">// 如果是1位的话,补0</span>
-            }
-
-            sb.<span class="built_in">append</span>(hexString);<span class="comment">//生成MD5码</span>
-        }
-
-        System.out.<span class="built_in">println</span>(<span class="string">"md5:"</span> + sb.toString());
-        System.out.<span class="built_in">println</span>(<span class="string">"md5 length:"</span> + sb.toString().length());<span class="comment">//Md5都是32位</span>
-
-    } <span class="keyword">catch</span> (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-        <span class="comment">// 没有该算法时,抛出异常, 不会走到这里</span>
-    }
-</code></pre><h3 id="2、MD5加盐处理">2、MD5加盐处理</h3><p>　　通过上面的代码我们就可以进行MD5处理了，但是由于MD5还是可以破解的，并且一个MD5值可能对应多个原始数据，因此当有人破解一个MD5值时，会把相同MD5值得所有原始内容获取到。因此在进行MD5处理时会进行”加盐处理”，具体来说就是在原有材料（用户自定义密码）中加入其它成分（一般是用户自有且不变的因素），以此来增加系统复杂度。当这种盐和用户密码相结合后，再通过摘要处理，就能得到隐蔽性更强的摘要值。代码如下：</p>
-<pre><code>byte<span class="string">[]</span> digest = instance.digest((username+password).getBytes());//  这里的username就是<span class="string">"盐"</span>，这样就更加不易破解
-</code></pre><h3 id="3、其他">3、其他</h3><p>　　如果觉得一次MD5处理不够的话，可以将得到的MD5值再次进行处理，这样就能得到隐蔽性更强的MD5值。但是如果有人要查询MD5值怎么办呢？我这里给大家推荐个网站可以查询MD5值<a href="http://www.cmd5.com/" target="_blank" rel="external">http://www.cmd5.com/</a>。在这里或许有人说MD5是不可逆的，怎么还能查询？其实这个网站的原理是将MD5值存在数据库里的，然后在将你传的MD5值拿去比对从而达到对MD5的解密。<br>　　<strong> 如有不正之处，请指出，谢谢。 </strong></p>
+        <p>　　谈谈自己对软件开发中“轮子”的一些看法<br><a id="more"></a></p>
+<h2 id="什么是轮子？">什么是轮子？</h2><p>　　在开发中我们有时候会听到别人说：“我们不要重复造轮子”、“自己写轮子的话很麻烦”等，那么什么是轮子啊？其实就是我们开发过程中使用的一些开源库或者框架，比如JavaWeb中的SSH、SSH2、Hibernate以及现在很火的SpringMVC等，android中的Glide、xutils、Volley等，以及别人写的demo。</p>
+<h2 id="轮子的利弊">轮子的利弊</h2><p>　　“不要重复造轮子 Stop Trying to Reinvent the Wheel”， 可能是每个程序员入行被告知的第一条准则。因为在我们入行时，别人会说，人家把轮子写好了，又很好用那么就何必自己来造轮子呢？对，这就是轮子的优点之一，简单、好用，能使很多人少写很多代码就能达到相同的效果。还有“轮子”将一些复杂的功能进行封装，让一些新手能够实现一些较复杂的功能。但是如果我们只是使用轮子，不去了解其中的原理。就会让我们成为轮子的奴隶，离开轮子后我们什么都不会，对自己百害而无一利。总而言之我们使用轮子是既有利又有害的，利是能够提升开发效率，将一些开发门槛降低了，并且方便好用；害的是容易使我们过度依赖于轮子，不去对自己技术的进行提升。</p>
+<h2 id="是否该自己造轮子？">是否该自己造轮子？</h2><p>　　既然轮子的使用对技术提升不是很大，那么我们是否该自己造轮子呢？其实也不对，当我们技术不是很牛逼时最好还是使用轮子比较好，因为我们在公司开发项目时，要求的是效率，代码健壮。而自己造的轮子难免会有各种bug，到时候改的话会有很多问题，影响项目开发效率。只有我们技术牛逼时才考虑去自己造轮子。因此我建议只有我们技术牛逼时采取造轮子（因为在我看来要造轮子就要造一个好轮子）。</p>
+<h2 id="我的看法">我的看法</h2><p>　　以我的开发经验来看，推荐使用一些好轮子（有api文档，demo，有一定的人使用的轮子），并且使用后还得理解轮子的代码实现及原理，但是我们还是得与轮子保持一定距离（避免过度依赖轮子）。当能力达到一定程度后就自己开始写轮子，这样才能对自己技术有很大的提升。<br>　　如有不正之处，请留言…</p>
 
       
     </div>
@@ -253,18 +229,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/02/guide-page/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          android引导页的实现
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/28/listview-refresh/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ListView下拉刷新跟上拉加载的实现</div>
+    <a href="/2015/12/06/three-cache/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">android三级缓存浅谈</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -278,7 +245,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="MD5-encryption" data-title="MD5浅谈" data-url="http://yoursite.com/2015/11/28/MD5-encryption/"></div>
+	<div class="ds-thread" data-thread-key="frame-discussion" data-title="我们是否应该自己“造轮子”？" data-url="http://yoursite.com/2015/12/12/frame-discussion/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[快乐的逗比程序员]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-12-02T14:27:34.916Z</updated>
+  <updated>2015-12-13T02:57:11.846Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,257 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[我们是否应该自己“造轮子”？]]></title>
+    <link href="http://yoursite.com/2015/12/12/frame-discussion/"/>
+    <id>http://yoursite.com/2015/12/12/frame-discussion/</id>
+    <published>2015-12-12T02:22:54.000Z</published>
+    <updated>2015-12-13T02:57:11.846Z</updated>
+    <content type="html"><![CDATA[<p>　　谈谈自己对软件开发中“轮子”的一些看法<br><a id="more"></a></p>
+<h2 id="什么是轮子？">什么是轮子？</h2><p>　　在开发中我们有时候会听到别人说：“我们不要重复造轮子”、“自己写轮子的话很麻烦”等，那么什么是轮子啊？其实就是我们开发过程中使用的一些开源库或者框架，比如JavaWeb中的SSH、SSH2、Hibernate以及现在很火的SpringMVC等，android中的Glide、xutils、Volley等，以及别人写的demo。</p>
+<h2 id="轮子的利弊">轮子的利弊</h2><p>　　“不要重复造轮子 Stop Trying to Reinvent the Wheel”， 可能是每个程序员入行被告知的第一条准则。因为在我们入行时，别人会说，人家把轮子写好了，又很好用那么就何必自己来造轮子呢？对，这就是轮子的优点之一，简单、好用，能使很多人少写很多代码就能达到相同的效果。还有“轮子”将一些复杂的功能进行封装，让一些新手能够实现一些较复杂的功能。但是如果我们只是使用轮子，不去了解其中的原理。就会让我们成为轮子的奴隶，离开轮子后我们什么都不会，对自己百害而无一利。总而言之我们使用轮子是既有利又有害的，利是能够提升开发效率，将一些开发门槛降低了，并且方便好用；害的是容易使我们过度依赖于轮子，不去对自己技术的进行提升。</p>
+<h2 id="是否该自己造轮子？">是否该自己造轮子？</h2><p>　　既然轮子的使用对技术提升不是很大，那么我们是否该自己造轮子呢？其实也不对，当我们技术不是很牛逼时最好还是使用轮子比较好，因为我们在公司开发项目时，要求的是效率，代码健壮。而自己造的轮子难免会有各种bug，到时候改的话会有很多问题，影响项目开发效率。只有我们技术牛逼时才考虑去自己造轮子。因此我建议只有我们技术牛逼时采取造轮子（因为在我看来要造轮子就要造一个好轮子）。</p>
+<h2 id="我的看法">我的看法</h2><p>　　以我的开发经验来看，推荐使用一些好轮子（有api文档，demo，有一定的人使用的轮子），并且使用后还得理解轮子的代码实现及原理，但是我们还是得与轮子保持一定距离（避免过度依赖轮子）。当能力达到一定程度后就自己开始写轮子，这样才能对自己技术有很大的提升。<br>　　如有不正之处，请留言…</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　谈谈自己对软件开发中“轮子”的一些看法<br>]]>
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[android三级缓存浅谈]]></title>
+    <link href="http://yoursite.com/2015/12/06/three-cache/"/>
+    <id>http://yoursite.com/2015/12/06/three-cache/</id>
+    <published>2015-12-06T12:39:45.000Z</published>
+    <updated>2015-12-12T03:42:50.622Z</updated>
+    <content type="html"><![CDATA[<p>　　在android开发中，我们在加载图片时，经常会遇到内存溢出的错误（如果使用第三方库就不会存在这种问题）。那么如何解决这样的内存溢出啊？一些大牛们就提供了三级缓存这种解决思路。<br><a id="more"></a></p>
+<h3 id="1、内存溢出的原因">1、内存溢出的原因</h3><p>　　首先我们要知道，在android里面内存是一种非常重要的资源，因此每一个app就都被android分配了固定的内存，而我们在加载图片时直接加载在内存中的，当图片数量太多时，内存就会超过系统给我们这个app分配的内存。这样就出现了内存溢出。</p>
+<h3 id="2、三级缓存的原理">2、三级缓存的原理</h3><p>　　通过上面我们知道了内存溢出产生的原因。那么我们如何解决这种内存溢出呢？其实在我看来有两种方法：</p>
+<blockquote>
+<p>1、对图片添加软引用，这是在android3.0以前的普遍解决办法。但是由于android3.0以后软引用很容易被垃圾回收机制回收掉，因此容易产生各种错误，所以目前就不推荐使用该方法(这里我也就不讲解)。<br>2、通过三级缓存来实现，这是目前主流的解决方法。也是目前推荐的解决办法（很多加载图片开源库的原理就是三级缓存，如Glide,xutils等）。</p>
+</blockquote>
+<p>　　然我们通过三级缓存解决内存溢出问题，那么我们就来说说什么是三级缓存。</p>
+<blockquote>
+<p>三级就是内存、sd卡、网络这三级，当我们加载图片时首先从网络获取图片、获取成功后我们保存到sd卡跟内存，那么我们下次在加载相同图片时就会首先从内存里面找图片，如果内存里面有，就直接加载，如果没有，我们就从sd卡里面获取，如果sd卡里面有的话，就直接加载并且保存在内存中。如果没有就从网络获取然后保存在sd卡跟内存中。这样我们实现了三级缓存。</p>
+</blockquote>
+<p>　　那么可能有人会问，加载到内存的图片怎么会找不到呢？这里我们就要说的我们实现三级缓存需要用到的Lru缓存。</p>
+<blockquote>
+<p>Lru说简单点就是一个经过特殊处理的Map集合，是怎么特殊处理的呢？首先我们给Lru分配一个内存（一般为运行内存的1/8），然后把图片放进去，如果图片的总内存小于我们分配的内存则可以继续放，但是如果超出我们分配的内存，Lru就会最后面的图片的引用变为易于回收的引用，方便回收。这里为什么是最后面啊？因为在Lru会把经常使用的图片的位置往前移。不经常使用的就只有往后排了。</p>
+</blockquote>
+<p>　　这就是三级缓存的原理，下面就来说说具体实现。</p>
+<h3 id="3、代码实现">3、代码实现</h3><p>　　上面我们我们了解了三级缓存的原理，下面我就代码来实现，首先创建工具类</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BitmapUtils</span> {
+<span class="comment">//网络获取工具类</span>
+<span class="keyword">private</span> NetCacheUtils netCacheUtils;
+<span class="comment">//sd卡获取工具类</span>
+<span class="keyword">private</span> LocalCacheUtils localCacheUtils;
+<span class="comment">//内存获取工具类</span>
+<span class="keyword">private</span> MemoryCacheUtils memoryCacheUtils;
+
+<span class="function"><span class="keyword">public</span> <span class="title">BitmapUtils</span>(<span class="params"></span>) </span>{
+    memoryCacheUtils = <span class="keyword">new</span> MemoryCacheUtils();
+    localCacheUtils = <span class="keyword">new</span> LocalCacheUtils();
+    <span class="comment">// 之所以在这里传入两个对象是为了让这两个对象只实例化一次</span>
+    netCacheUtils = <span class="keyword">new</span> NetCacheUtils(localCacheUtils, memoryCacheUtils);
+}
+
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span>(<span class="params">String url,ImageView imageView</span>) </span>{
+    Bitmap bitmap=<span class="keyword">null</span>;
+    <span class="comment">//从内存里面读取图片</span>
+    bitmap=memoryCacheUtils.getBitmapToMemory(url);
+    <span class="keyword">if</span>(bitmap!=<span class="keyword">null</span>){
+        <span class="keyword">return</span>;
+    }
+    <span class="comment">//从sd卡里面读取图片</span>
+    bitmap=localCacheUtils.getBitmapFromLocal(url);
+    <span class="keyword">if</span>(bitmap!=<span class="keyword">null</span>){
+        imageView.setImageBitmap(bitmap);
+        memoryCacheUtils.setBitmapToMemory(url, bitmap);
+        <span class="keyword">return</span>;
+    }
+    <span class="comment">//从网络读取图片</span>
+    netCacheUtils.getBitmapFromNet(url, imageView);
+}
+}
+</code></pre><p>　　然后我们首先来代码实现网络获取图片：</p>
+<pre><code>public class <span class="type">NetCacheUtils</span> {
+private <span class="type">LocalCacheUtils</span> localCacheUtils;
+private <span class="type">MemoryCacheUtils</span> memoryCacheUtils;
+
+public <span class="type">NetCacheUtils</span>(<span class="type">LocalCacheUtils</span> localCacheUtils,
+        <span class="type">MemoryCacheUtils</span> memoryCacheUtils) {
+    this.localCacheUtils = localCacheUtils;
+    this.memoryCacheUtils = memoryCacheUtils;
+}
+
+public <span class="type">void</span> getBitmapFromNet(<span class="type">String</span> url, <span class="type">ImageView</span> imageView) {
+    new <span class="type">BitmapTask</span>().execute(url, imageView);
+}
+
+/**
+ * <span class="type">Handler</span>和线程池的封装
+ * 
+ * 第一个泛型: 参数类型 第二个泛型: 更新进度的泛型, 第三个泛型是onPostExecute的返回结果
+ * 
+ * @author <span class="type">Kevin</span>
+ * 
+ */
+private class <span class="type">BitmapTask</span> extends <span class="type">AsyncTask</span>&lt;<span class="type">Object</span>, <span class="type">Void</span>, <span class="type">Bitmap</span>&gt; {
+
+    private <span class="type">String</span> url;
+    private <span class="type">ImageView</span> imageView;
+
+    // 耗时操作
+    @<span class="type">Override</span>
+    protected <span class="type">Bitmap</span> doInBackground(<span class="type">Object</span>... params) {
+        url = (<span class="type">String</span>) params[<span class="number">0</span>];
+        imageView = (<span class="type">ImageView</span>) params[<span class="number">1</span>];
+        //将url与imageView进行绑定
+        imageView.setTag(url);
+        <span class="keyword">return</span> downloadBitmap(url);
+    }
+
+    // 更新<span class="type">UI</span>
+    @<span class="type">Override</span>
+    protected <span class="type">void</span> onPostExecute(<span class="type">Bitmap</span> <span class="literal">result</span>) {
+        // super.onPostExecute(<span class="literal">result</span>);
+        <span class="keyword">if</span> (<span class="literal">result</span> != null) {
+            <span class="type">String</span> str = (<span class="type">String</span>) imageView.getTag();
+            <span class="keyword">if</span> (str.equals(url)) {//确保将图片正确与imageView相对应
+                imageView.setImageBitmap(<span class="literal">result</span>);
+                localCacheUtils.setBitmapFromLocal(url, <span class="literal">result</span>);
+                memoryCacheUtils.setBitmapToMemory(url, <span class="literal">result</span>);
+            }
+        }
+    }
+
+    // 进度更新
+    @<span class="type">Override</span>
+    protected <span class="type">void</span> onProgressUpdate(<span class="type">Void</span>... values) {
+        // <span class="type">TODO</span> <span class="type">Auto</span>-generated <span class="keyword">method</span> stub
+        super.onProgressUpdate(values);
+    }
+
+}
+
+// 根据图片路径来下载图片
+private <span class="type">Bitmap</span> downloadBitmap(<span class="type">String</span> url) {
+    <span class="type">HttpURLConnection</span> conn = null;
+    <span class="keyword">try</span> {
+        conn = (<span class="type">HttpURLConnection</span>) new <span class="type">URL</span>(url).openConnection();
+        // 设置连接时间（大于<span class="number">5</span>秒则超时）
+        conn.setConnectTimeout(<span class="number">5000</span>);
+        // 设置响应时间，大于<span class="number">5000</span>秒也超时
+        conn.setReadTimeout(<span class="number">5000</span>);
+        // 设置请求方式为get
+        conn.setRequestMethod(<span class="string">"GET"</span>);
+        // 不允许使用缓存
+        conn.setUseCaches(<span class="literal">false</span>);
+        conn.connect();
+        // 获得响应码
+        <span class="type">int</span> code = conn.getResponseCode();
+        <span class="keyword">if</span> (code == <span class="number">200</span>) {
+            <span class="type">InputStream</span> inputStream = conn.getInputStream();
+            <span class="type">Bitmap</span> bitmap = <span class="type">BitmapFactory</span>.decodeStream(inputStream);
+            <span class="keyword">return</span> bitmap;
+        }
+    } catch (<span class="type">Exception</span> e) {
+        e.printStackTrace();
+    } <span class="keyword">finally</span> {
+        // 关闭连接
+        conn.disconnect();
+    }
+
+    <span class="keyword">return</span> null;
+}
+</code></pre><p>}</p>
+<p>　　通过上面代码我们就实现了网络获取图片，这里我采用的是AsyncTask来进行异步操作，HttpURLConnection来下载的网络图片，然后我们来实现sd卡加载图片</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> LocalCacheUtils {
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String CACHE_PATH = Environment
+        .getExternalStorageDirectory().getAbsolutePath()
+        + <span class="string">"/image_cache_52"</span>;
+
+<span class="comment">//从sd卡里面读取图片</span>
+<span class="keyword">public</span> Bitmap getBitmapFromLocal(String url) {
+    <span class="keyword">try</span> {
+        String fileName = MD5Encoder.encode(url);
+        <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(CACHE_PATH, fileName);
+        <span class="keyword">if</span> (<span class="keyword">file</span>.exists()) {
+            Bitmap bitmap = BitmapFactory.decodeStream(<span class="keyword">new</span> FileInputStream(
+                    <span class="keyword">file</span>));
+            <span class="keyword">return</span> bitmap;
+        }
+    } <span class="keyword">catch</span> (Exception e) {
+        <span class="comment">// TODO Auto-generated catch block</span>
+        e.printStackTrace();
+    }
+    <span class="keyword">return</span> <span class="keyword">null</span>;
+}
+
+<span class="comment">//往sd里面写入图片</span>
+<span class="keyword">public</span> <span class="keyword">void</span> setBitmapFromLocal(String url, Bitmap bitmap) {
+    String fileName;
+    <span class="keyword">try</span> {
+        fileName = MD5Encoder.encode(url);
+        <span class="keyword">File</span> <span class="keyword">file</span> = <span class="keyword">new</span> <span class="keyword">File</span>(CACHE_PATH, fileName);
+        <span class="keyword">File</span> fileParent = <span class="keyword">file</span>.getParentFile();
+        <span class="keyword">if</span> (!fileParent.exists()) {
+            fileParent.mkdirs();
+        }
+        <span class="comment">//保存到sd卡</span>
+        bitmap.compress(CompressFormat.JPEG, <span class="number">100</span>,
+                <span class="keyword">new</span> FileOutputStream(<span class="keyword">file</span>));
+    } <span class="keyword">catch</span> (Exception e) {
+        <span class="comment">// TODO Auto-generated catch block</span>
+        e.printStackTrace();
+    }
+}
+}
+</code></pre><p>　　最后我们就是来实现内存加载图片了，废话不多说，直接上代码：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MemoryCacheUtils</span> {
+
+<span class="keyword">private</span> LruCache&lt;String, Bitmap&gt; lruCache;
+<span class="function"><span class="keyword">public</span> <span class="title">MemoryCacheUtils</span>(<span class="params"></span>)</span>{
+    <span class="comment">//一般使用最大内存的1/8来进行图片缓存</span>
+    <span class="keyword">long</span> maxMemory=Runtime.getRuntime().maxMemory()/<span class="number">8</span>;
+    lruCache=<span class="keyword">new</span> LruCache&lt;String, Bitmap&gt;((<span class="keyword">int</span>) maxMemory){
+        @<span class="function">Override
+        <span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">sizeOf</span>(<span class="params">String key, Bitmap <span class="keyword">value</span></span>) </span>{
+            <span class="comment">//获取图片的占用内存大小</span>
+            <span class="keyword">int</span> size=<span class="keyword">value</span>.getRowBytes()*<span class="keyword">value</span>.getHeight();
+            <span class="keyword">return</span> size;
+        }
+    };
+}
+
+<span class="function"><span class="keyword">public</span> Bitmap <span class="title">getBitmapToMemory</span>(<span class="params">String url</span>)</span>{
+    <span class="keyword">return</span> lruCache.<span class="keyword">get</span>(url);
+}
+
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBitmapToMemory</span>(<span class="params">String url,Bitmap bitmap</span>)</span>{
+    lruCache.put(url, bitmap);
+}
+}
+</code></pre><p>　　这样我们的三级缓存就大功告成啦。哈哈哈</p>
+<h3 id="4、其他">4、其他</h3><p>　　虽然上面代码实现了三级缓存，但是我还是不建议直接使用上面代码运用到项目中。因为上面代码只是实现了三级缓存的一个皮毛，还有大量细节需要处理。并且上面代码也有报内存溢出的可能，至于如何优化请看后面的博客。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　在android开发中，我们在加载图片时，经常会遇到内存溢出的错误（如果使用第三方库就不会存在这种问题）。那么如何解决这样的内存溢出啊？一些大牛们就提供了三级缓存这种解决思路。<br>]]>
+    
+    </summary>
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+      <category term="三级缓存" scheme="http://yoursite.com/tags/%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/"/>
+    
+      <category term="加载图片" scheme="http://yoursite.com/tags/%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[android引导页的实现]]></title>
@@ -243,9 +494,365 @@
     <link href="http://yoursite.com/2015/11/28/listview-refresh/"/>
     <id>http://yoursite.com/2015/11/28/listview-refresh/</id>
     <published>2015-11-28T06:18:02.000Z</published>
-    <updated>2015-11-28T06:19:24.175Z</updated>
-    <content type="html"></content>
+    <updated>2015-12-06T12:36:41.125Z</updated>
+    <content type="html"><![CDATA[<p>　　下拉刷新跟上拉加载这两个功能我相信在android开发中用的很多，毕竟这两个功能在增强用户体验，也解决了很多开发问题。但是我相信这两个功能的实现恐怕不好实现吧（针对很多新手来说），于是就有很多开源库比如<a href="https://github.com/chrisbanes/Android-PullToRefresh" target="_blank" rel="external">Android-PullToRefresh</a>、谷歌自己推出的SwipeRefreshLayout等开源库。但是由于我认为自己造轮子对自己的技术提升比较好，因此我自己也写了一个针对listView的下拉刷新跟上拉加载。<br><a id="more"></a></p>
+<hr>
+<p>　　首先我们先来说说实现的原理，首先我们先把刷新部分的布局写好，让他通过ListView的addHeaderView(View)方法填到头部（ListView的addHeaderView(View)可以添加多个。上拉加载是用addFooterView(View)方法），然后将这个布局隐藏，随着手指的滑动二显示并且进行相应的状态变化。<br>　　上面说了实现原理，那么下面就来实现，首先我们先写好下拉刷新部分的布局refresh_header.xml：</p>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">LinearLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:orientation</span>=<span class="value">"horizontal"</span> &gt;</span>
+
+<span class="tag">&lt;<span class="title">FrameLayout</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:padding</span>=<span class="value">"10dp"</span> &gt;</span>
+
+    <span class="tag">&lt;<span class="title">ImageView</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/iv_arr"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+        <span class="attribute">android:src</span>=<span class="value">"@drawable/common_listview_headview_red_arrow"</span> /&gt;</span>
+
+    <span class="tag">&lt;<span class="title">ProgressBar</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/pb_progress"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+        <span class="attribute">android:visibility</span>=<span class="value">"invisible"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">FrameLayout</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">LinearLayout</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span>
+    <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:orientation</span>=<span class="value">"vertical"</span> &gt;</span>
+
+    <span class="tag">&lt;<span class="title">TextView</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/tv_title"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:text</span>=<span class="value">"下拉刷新"</span>
+        <span class="attribute">android:textColor</span>=<span class="value">"#f00"</span>
+        <span class="attribute">android:textSize</span>=<span class="value">"16sp"</span> /&gt;</span>
+
+    <span class="tag">&lt;<span class="title">TextView</span>
+        <span class="attribute">android:id</span>=<span class="value">"@+id/tv_time"</span>
+        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+        <span class="attribute">android:layout_marginTop</span>=<span class="value">"5dp"</span>
+        <span class="attribute">android:text</span>=<span class="value">"最后刷新时间:2015-03-10 17:07:07"</span>
+        <span class="attribute">android:textColor</span>=<span class="value">"@android:color/darker_gray"</span>
+        <span class="attribute">android:textSize</span>=<span class="value">"14sp"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">LinearLayout</span>&gt;</span>
+</code></pre><p></p>
+<p>　　这样下拉部分的布局就写好了，然后我们再来写上拉加载的布局，创建一个名为refresh_listview_footer的上拉加载的布局文件，代码如下：</p>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">LinearLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
+<span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+<span class="attribute">android:gravity</span>=<span class="value">"center"</span>
+<span class="attribute">android:orientation</span>=<span class="value">"horizontal"</span> &gt;</span>
+
+<span class="tag">&lt;<span class="title">ProgressBar</span>
+    <span class="attribute">android:id</span>=<span class="value">"@+id/pb_pull_list_header"</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_gravity</span>=<span class="value">"center"</span>
+    <span class="attribute">android:layout_margin</span>=<span class="value">"5dp"</span>
+    <span class="attribute">android:indeterminateDrawable</span>=<span class="value">"@drawable/custom_progress"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">TextView</span>
+    <span class="attribute">android:id</span>=<span class="value">"@+id/tv_pull_list_header_title"</span>
+    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
+    <span class="attribute">android:text</span>=<span class="value">"加载中..."</span>
+    <span class="attribute">android:textColor</span>=<span class="value">"#ff0000"</span>
+    <span class="attribute">android:textSize</span>=<span class="value">"18sp"</span> /&gt;</span>
+</code></pre><p></p>
+<p>　　这样我们就把布局写好了，然后我们就将布局加到ListView里面去，这里要加到ListView里面去则需要重写ListView，下面我们就来创建一个继承与ListView的RefreshListView类：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">class</span> RefreshListView extends ListView implements OnScrollListener,
+    android.widget.AdapterView.OnItemClickListener {
+
+
+<span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> STATE_PULL_REFRESH = <span class="number">0</span>;<span class="comment">// 下拉刷新</span>
+<span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> STATE_RELEASE_REFRESH = <span class="number">1</span>;<span class="comment">// 松开刷新</span>
+<span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">int</span> STATE_REFRESHING = <span class="number">2</span>;<span class="comment">// 正在刷新</span>
+
+<span class="keyword">private</span> <span class="keyword">int</span> mCurrrentState = STATE_PULL_REFRESH;<span class="comment">// 当前状态</span>
+
+<span class="keyword">private</span> TextView tvTitle;
+<span class="keyword">private</span> TextView tvTime;
+<span class="keyword">private</span> ImageView ivArrow;
+<span class="keyword">private</span> ProgressBar pbProgress;
+<span class="keyword">private</span> View mHeaderView;
+<span class="keyword">private</span> <span class="keyword">int</span> startY = -<span class="number">1</span>;
+<span class="keyword">private</span> <span class="keyword">int</span> mHeaderViewHeight;
+<span class="keyword">private</span> RotateAnimation animUp;
+<span class="keyword">private</span> RotateAnimation animDown;
+<span class="keyword">private</span> View mFooterView;
+<span class="keyword">private</span> <span class="keyword">int</span> mFooterViewHeight;
+
+<span class="function"><span class="keyword">public</span> <span class="title">RefreshListView</span><span class="params">(Context context)</span> </span>{
+    super(context);
+    initHeaderView();
+}
+
+<span class="function"><span class="keyword">public</span> <span class="title">RefreshListView</span><span class="params">(Context context, AttributeSet attrs)</span> </span>{
+    super(context, attrs);
+    initHeaderView();
+}
+
+<span class="function"><span class="keyword">public</span> <span class="title">RefreshListView</span><span class="params">(Context context, AttributeSet attrs, <span class="keyword">int</span> defStyle)</span> </span>{
+    super(context, attrs, defStyle);
+    initHeaderView();
+}
+
+<span class="comment">//下面就是将下拉的布局添加到ListView中</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initHeaderView</span><span class="params">()</span> </span>{
+    mHeaderView = View.inflate(getContext(), R.layout.refresh_header, null);
+    <span class="comment">// 将下拉刷新的布局加到listView顶部</span>
+    <span class="keyword">this</span>.addHeaderView(mHeaderView);
+    tvTitle = (TextView) mHeaderView.findViewById(R.id.tv_title);
+    tvTime = (TextView) mHeaderView.findViewById(R.id.tv_time);
+    ivArrow = (ImageView) mHeaderView.findViewById(R.id.iv_arr);
+    pbProgress = (ProgressBar) mHeaderView.findViewById(R.id.pb_progress);
+    <span class="comment">// 下面两句代码就是将刷新显示的布局因隐藏</span>
+    mHeaderView.measure(<span class="number">0</span>, <span class="number">0</span>);
+    mHeaderViewHeight = mHeaderView.getMeasuredHeight();
+    mHeaderView.setPadding(<span class="number">0</span>, -mHeaderViewHeight, <span class="number">0</span>, <span class="number">0</span>);
+    initArrowAnim();
+}
+
+<span class="comment">/*
+ * 初始化脚布局，就上拉加载的布局添加到ListView里面去
+ */</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initFooterView</span><span class="params">()</span> </span>{
+    mFooterView = View.inflate(getContext(),
+            R.layout.refresh_listview_footer, null);
+    <span class="keyword">this</span>.addFooterView(mFooterView);
+
+    mFooterView.measure(<span class="number">0</span>, <span class="number">0</span>);
+    mFooterViewHeight = mFooterView.getMeasuredHeight();
+
+    mFooterView.setPadding(<span class="number">0</span>, -mFooterViewHeight, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 隐藏</span>
+
+    <span class="keyword">this</span>.setOnScrollListener(<span class="keyword">this</span>);
+}
+
+
+@<span class="function">Override
+<span class="keyword">public</span> boolean <span class="title">onTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>{
+    <span class="keyword">switch</span> (ev.getAction()) {
+    <span class="keyword">case</span> MotionEvent.ACTION_DOWN:
+        startY = (<span class="keyword">int</span>) ev.getRawY();
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> MotionEvent.ACTION_MOVE:
+        <span class="keyword">int</span> endY = (<span class="keyword">int</span>) ev.getRawY();
+        <span class="keyword">if</span> (startY == -<span class="number">1</span>) {
+            <span class="comment">// break;</span>
+            startY = (<span class="keyword">int</span>) ev.getRawY();
+        }
+
+        <span class="keyword">if</span> (mCurrrentState == STATE_REFRESHING) {
+            <span class="keyword">break</span>;
+        }
+        <span class="keyword">int</span> dy = endY - startY;<span class="comment">// 移动偏移量</span>
+        <span class="keyword">if</span> (dy &gt; <span class="number">0</span> &amp;&amp; getFirstVisiblePosition() == <span class="number">0</span>) {
+            <span class="keyword">int</span> padding = dy - mHeaderViewHeight;<span class="comment">// 计算padding</span>
+            mHeaderView.setPadding(<span class="number">0</span>, padding, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 设置当前padding</span>
+            <span class="keyword">if</span> (padding &lt; <span class="number">0</span> &amp;&amp; mCurrrentState != STATE_PULL_REFRESH) {
+                mCurrrentState = STATE_PULL_REFRESH;
+                refreshState();
+            } <span class="keyword">else</span> <span class="keyword">if</span> (padding &gt; <span class="number">0</span>
+                    &amp;&amp; mCurrrentState != STATE_RELEASE_REFRESH) {
+                mCurrrentState = STATE_RELEASE_REFRESH;
+                refreshState();
+            }
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        }
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> MotionEvent.ACTION_UP:
+        <span class="comment">// mHeaderView.measure(0, 0);</span>
+        startY = -<span class="number">1</span>;<span class="comment">// 重置</span>
+        <span class="keyword">if</span> (mCurrrentState == STATE_PULL_REFRESH) {
+            mHeaderView.setPadding(<span class="number">0</span>, -mHeaderViewHeight, <span class="number">0</span>, <span class="number">0</span>);
+        } <span class="keyword">else</span> <span class="keyword">if</span> (mCurrrentState == STATE_RELEASE_REFRESH) {
+            mCurrrentState = STATE_REFRESHING;
+            mHeaderView.setPadding(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
+            refreshState();
+
+        }
+        <span class="keyword">break</span>;
+    }
+    <span class="keyword">return</span> super.onTouchEvent(ev);
+}
+
+<span class="comment">/*
+ * 刷新下拉控件的布局
+ */</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">refreshState</span><span class="params">()</span> </span>{
+    <span class="keyword">switch</span> (mCurrrentState) {
+    <span class="keyword">case</span> STATE_PULL_REFRESH:
+        tvTitle.setText(<span class="string">"下拉刷新"</span>);
+        ivArrow.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.INVISIBLE);
+        ivArrow.startAnimation(animDown);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> STATE_RELEASE_REFRESH:
+        tvTitle.setText(<span class="string">"松开刷新"</span>);
+        ivArrow.setVisibility(View.VISIBLE);
+        pbProgress.setVisibility(View.INVISIBLE);
+        ivArrow.startAnimation(animUp);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> STATE_REFRESHING:
+        tvTitle.setText(<span class="string">"正在刷新..."</span>);
+        ivArrow.clearAnimation();<span class="comment">// 必须先清除动画,才能隐藏</span>
+        ivArrow.setVisibility(View.INVISIBLE);
+        pbProgress.setVisibility(View.VISIBLE);
+
+        <span class="keyword">if</span> (listener != null) {
+            listener.onRefresh();
+        }
+        <span class="keyword">break</span>;
+    }
+}
+
+<span class="comment">/**
+ * 初始化箭头动画
+ */</span>
+<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initArrowAnim</span><span class="params">()</span> </span>{
+    <span class="comment">// 箭头向上动画</span>
+    animUp = <span class="keyword">new</span> RotateAnimation(<span class="number">0</span>, -<span class="number">180</span>, Animation.RELATIVE_TO_SELF, <span class="number">0.5f</span>,
+            Animation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);
+    animUp.setDuration(<span class="number">200</span>);
+    animUp.setFillAfter(<span class="literal">true</span>);
+
+    <span class="comment">// 箭头向下动画</span>
+    animDown = <span class="keyword">new</span> RotateAnimation(-<span class="number">180</span>, <span class="number">0</span>, Animation.RELATIVE_TO_SELF,
+            <span class="number">0.5f</span>, Animation.RELATIVE_TO_SELF, <span class="number">0.5f</span>);
+    animDown.setDuration(<span class="number">200</span>);
+    animDown.setFillAfter(<span class="literal">true</span>);
+
+}
+
+<span class="keyword">private</span> OnRefreshListener listener;
+
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnRefreshListener</span><span class="params">(OnRefreshListener listener)</span> </span>{
+    <span class="keyword">this</span>.listener = listener;
+}
+
+<span class="comment">//给外部调用的监听接口</span>
+<span class="keyword">public</span> interface OnRefreshListener {
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefresh</span><span class="params">()</span></span>;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadMore</span><span class="params">()</span></span>;<span class="comment">// 加载下一页数据</span>
+}
+
+<span class="comment">/*
+ * 收起下拉刷新及上垃加载的控件
+ */</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefreshComplete</span><span class="params">(boolean success)</span> </span>{
+    <span class="keyword">if</span> (isLoadingMore) {<span class="comment">// 正在加载更多...</span>
+        mFooterView.setPadding(<span class="number">0</span>, -mFooterViewHeight, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 隐藏脚布局</span>
+        isLoadingMore = <span class="literal">false</span>;
+    } <span class="keyword">else</span> {
+        <span class="keyword">if</span> (mCurrrentState == STATE_REFRESHING) {
+            mCurrrentState = STATE_PULL_REFRESH;
+            tvTitle.setText(<span class="string">"下拉刷新"</span>);
+            ivArrow.setVisibility(View.VISIBLE);
+            pbProgress.setVisibility(View.INVISIBLE);
+            mHeaderView.setPadding(<span class="number">0</span>, -mHeaderViewHeight, <span class="number">0</span>, <span class="number">0</span>);
+            <span class="keyword">if</span> (success) {
+                tvTime.setText(<span class="string">"最后刷新时间:"</span> + getCurrentTime());
+            }
+        }
+    }
+}
+
+<span class="comment">/**
+ * 获取当前时间
+ */</span>
+<span class="function"><span class="keyword">public</span> String <span class="title">getCurrentTime</span><span class="params">()</span> </span>{
+    SimpleDateFormat format = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);
+    <span class="keyword">return</span> format.format(<span class="keyword">new</span> Date());
+}
+
+<span class="keyword">private</span> boolean isLoadingMore;
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrollStateChanged</span><span class="params">(AbsListView view, <span class="keyword">int</span> scrollState)</span> </span>{
+    <span class="keyword">if</span> (scrollState == SCROLL_STATE_IDLE
+            || scrollState == SCROLL_STATE_FLING) {
+
+        <span class="keyword">if</span> (getLastVisiblePosition() == getCount() - <span class="number">1</span> &amp;&amp; !isLoadingMore) {<span class="comment">// 滑动到最后</span>
+            System.out.println(<span class="string">"到底了....."</span>);
+            mFooterView.setPadding(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">// 显示</span>
+            setSelection(getCount() - <span class="number">1</span>);<span class="comment">// 改变listview显示位置</span>
+
+            isLoadingMore = <span class="literal">true</span>;
+
+            <span class="keyword">if</span> (listener != null) {
+                listener.onLoadMore();
+            }
+        }
+    }
+}
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScroll</span><span class="params">(AbsListView view, <span class="keyword">int</span> firstVisibleItem,
+        <span class="keyword">int</span> visibleItemCount, <span class="keyword">int</span> totalItemCount)</span> </span>{
+
+}
+
+OnItemClickListener mItemClickListener;
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnItemClickListener</span><span class="params">(
+        android.widget.AdapterView.OnItemClickListener listener)</span> </span>{
+    super.setOnItemClickListener(<span class="keyword">this</span>);
+
+    mItemClickListener = listener;
+}
+
+@<span class="function">Override
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(AdapterView&lt;?&gt; parent, View view, <span class="keyword">int</span> position,
+        <span class="keyword">long</span> id)</span> </span>{
+    <span class="keyword">if</span> (mItemClickListener != null) {
+        <span class="comment">//通过这样获得正确的id，不然的话我们得减去LiatView添加的头布局跟底布局</span>
+        mItemClickListener.onItemClick(parent, view, position
+                - getHeaderViewsCount(), id);
+    }
+}
+}
+</code></pre><p>　　这样我们就自己写好了一个实现了上拉加载跟下拉刷新的ListView。当然这里的ProgressBar控件可能有点丑，下面的代码可以给ProgressBar重新设置背景：</p>
+<pre><code><span class="xml"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">rotate</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
+<span class="attribute">android:fromDegrees</span>=<span class="value">"0"</span>
+<span class="attribute">android:pivotX</span>=<span class="value">"50%"</span>
+<span class="attribute">android:pivotY</span>=<span class="value">"50%"</span>
+<span class="attribute">android:toDegrees</span>=<span class="value">"360"</span> &gt;</span>
+
+<span class="tag">&lt;<span class="title">shape</span>
+    &lt;!<span class="attribute">--</span>这个圆环半径是<span class="attribute">12dp--</span>&gt;</span>
+    android:innerRadius="12dp"
+    <span class="comment">&lt;!--生成一个圆环--&gt;</span>
+    android:shape="ring"
+    android:thickness="3dp"
+    android:useLevel="false" &gt;
+    <span class="tag">&lt;<span class="title">gradient</span>
+        <span class="attribute">android:centerColor</span>=<span class="value">"#3f00"</span>
+        <span class="attribute">android:endColor</span>=<span class="value">"#f00"</span>
+        <span class="attribute">android:startColor</span>=<span class="value">"#fff"</span> /&gt;</span>
+<span class="tag">&lt;/<span class="title">shape</span>&gt;</span></span>
+</code></pre><p></p>
+<p>　　这样一个不错的能实现下拉刷新跟上拉加载的ListView就实现了。</p>
+]]></content>
     <summary type="html">
+    <![CDATA[<p>　　下拉刷新跟上拉加载这两个功能我相信在android开发中用的很多，毕竟这两个功能在增强用户体验，也解决了很多开发问题。但是我相信这两个功能的实现恐怕不好实现吧（针对很多新手来说），于是就有很多开源库比如<a href="https://github.com/chrisbanes/Android-PullToRefresh">Android-PullToRefresh</a>、谷歌自己推出的SwipeRefreshLayout等开源库。但是由于我认为自己造轮子对自己的技术提升比较好，因此我自己也写了一个针对listView的下拉刷新跟上拉加载。<br>]]>
     
     </summary>
     
@@ -311,23 +918,6 @@ File file = <span class="keyword">new</span> File(Bimp.tempSelectBitmap.<span cl
       <category term="xutils3" scheme="http://yoursite.com/tags/xutils3/"/>
     
       <category term="上传图片" scheme="http://yoursite.com/tags/%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[21岁生日]]></title>
-    <link href="http://yoursite.com/2015/11/22/twenty_one_birthday/"/>
-    <id>http://yoursite.com/2015/11/22/twenty_one_birthday/</id>
-    <published>2015-11-21T16:00:00.000Z</published>
-    <updated>2015-11-14T13:49:32.331Z</updated>
-    <content type="html"><![CDATA[<p>暂无<br><a id="more"></a><br>暂无</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>暂无<br>]]>
-    
-    </summary>
-    
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   

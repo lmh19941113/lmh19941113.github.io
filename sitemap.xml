@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2015/12/12/frame-discussion/</loc>
+    <lastmod>2015-12-13T02:57:11.846Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/12/06/three-cache/</loc>
+    <lastmod>2015-12-12T03:42:50.622Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2015/11/28/listview-refresh/</loc>
+    <lastmod>2015-12-06T12:36:41.125Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2015/11/28/MD5-encryption/</loc>
     <lastmod>2015-12-02T14:33:25.435Z</lastmod>
   </url>
@@ -12,11 +27,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2015/11/28/listview-refresh/</loc>
-    <lastmod>2015-11-28T06:19:24.175Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2015/11/27/xutils3/</loc>
     <lastmod>2015-11-28T06:03:08.856Z</lastmod>
   </url>
@@ -24,11 +34,6 @@
   <url>
     <loc>http://yoursite.com/2015/11/18/volley/</loc>
     <lastmod>2015-11-27T13:39:29.520Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2015/11/22/twenty_one_birthday/</loc>
-    <lastmod>2015-11-14T13:49:32.331Z</lastmod>
   </url>
   
   <url>
