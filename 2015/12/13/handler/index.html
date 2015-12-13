@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/11 | 默默的博客</title>
+  <title>Handler消息传递机制 | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="陌生人勿扰">
-<meta property="og:type" content="website">
-<meta property="og:title" content="默默的博客">
-<meta property="og:url" content="http://yoursite.com/archives/2015/11/index.html">
+  <meta name="description" content="谈谈我自己对Handler的一点看法…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Handler消息传递机制">
+<meta property="og:url" content="http://yoursite.com/2015/12/13/handler/index.html">
 <meta property="og:site_name" content="默默的博客">
-<meta property="og:description" content="陌生人勿扰">
+<meta property="og:description" content="谈谈我自己对Handler的一点看法…">
+<meta property="og:updated_time" content="2015-12-13T05:40:10.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="默默的博客">
-<meta name="twitter:description" content="陌生人勿扰">
+<meta name="twitter:title" content="Handler消息传递机制">
+<meta name="twitter:description" content="谈谈我自己对Handler的一点看法…">
   
     <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
   
@@ -192,177 +193,102 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-handler" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2015/12/13/handler/" class="article-date">
+  	<time datetime="2015-12-13T04:34:37.000Z" itemprop="datePublished">2015-12-13</time>
+</a>
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Handler消息传递机制
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handler消息传递机制/">Handler消息传递机制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/28/MD5-encryption/" class="archive-article-date">
-  	<time datetime="2015-11-28T14:00:08.000Z" itemprop="datePublished">11月 28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/28/MD5-encryption/">MD5浅谈</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　谈谈我自己对Handler的一点看法…<br><a id="more"></a></p>
+<hr>
+<p>　　我想Handler对于android开发者都不陌生吧，主要用于子线程跟UI线程之间的通信，那么其中的原理是什么呢？…<br>　　其实在子线程与主线程之间的通信主要就是消息的传递，但是这个消息的传递也没有我们想象的那么简单。Handler在这个消息传递机制中只是负责接收和发送消息，就像快递员一样只负责接快递或者送快递。那么只有handler就发送消息能行吗？肯定不行，就像快递员拿到快递后就把快送出去，这样合理吗？肯定不合理，因为快递还得需要运送快递。然后这样就能送到了吗？肯定不能，万一距离远了，快递公司就还是需要地方存放快递，所有就还需要一个存快递的地方。Handler的消息传递机制就给送快递相类似，那么下面就来总结一下Handler的传递机制：</p>
+<blockquote>
+<p>在子线程与主线程之间的消息传递主要需要三样东西，Handler（快递员）、Looper（负责运送快递的）、消息队列（存快递的仓库）。<strong> 消息队列顾名思义就是来存储消息的地方，然后通过Handler来发送跟接收消息。当然这其中还需要Looper来使Handler来进行循环的发送跟接收消息 </strong>，不然Handler一次完事后就不干了。</p>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MD5/">MD5</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/12/13/仿Viewpager/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          仿Viewpager效果的实现
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/12/frame-discussion/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">我们是否应该自己“造轮子”？</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/28/listview-refresh/" class="archive-article-date">
-  	<time datetime="2015-11-28T06:18:02.000Z" itemprop="datePublished">11月 28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/28/listview-refresh/">ListView下拉刷新跟上拉加载的实现</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ListView下拉刷新跟上拉加载/">ListView下拉刷新跟上拉加载</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/27/xutils3/" class="archive-article-date">
-  	<time datetime="2015-11-27T13:32:59.000Z" itemprop="datePublished">11月 27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/27/xutils3/">xutils3上传图片</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xutils3/">xutils3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/上传图片/">上传图片</a></li></ul>
-	</div>
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="handler" data-title="Handler消息传递机制" data-url="http://yoursite.com/2015/12/13/handler/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/18/volley/" class="archive-article-date">
-  	<time datetime="2015-11-18T15:35:28.000Z" itemprop="datePublished">11月 18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/18/volley/">Volley框架的使用</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volley/">volley</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络请求/">网络请求</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/04/hexo/" class="archive-article-date">
-  	<time datetime="2015-11-04T15:29:44.000Z" itemprop="datePublished">11月 4</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/04/hexo/">hexo静态博客搭建教程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 </div>
       <footer id="footer">
@@ -388,8 +314,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
