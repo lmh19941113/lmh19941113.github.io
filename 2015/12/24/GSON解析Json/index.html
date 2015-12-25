@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>gallery | 默默的博客</title>
+  <title>GSON解析Json的一个小小Bug | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="暂无任何照片">
-<meta property="og:type" content="website">
-<meta property="og:title" content="gallery">
-<meta property="og:url" content="http://yoursite.com/gallery/index.html">
+  <meta name="description" content="最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GSON解析Json的一个小小Bug">
+<meta property="og:url" content="http://yoursite.com/2015/12/24/GSON解析Json/index.html">
 <meta property="og:site_name" content="默默的博客">
-<meta property="og:description" content="暂无任何照片">
-<meta property="og:updated_time" content="2015-11-14T13:48:30.040Z">
+<meta property="og:description" content="最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…">
+<meta property="og:updated_time" content="2015-12-25T13:29:06.838Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gallery">
-<meta name="twitter:description" content="暂无任何照片">
+<meta name="twitter:title" content="GSON解析Json的一个小小Bug">
+<meta name="twitter:description" content="最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…">
   
     <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
   
@@ -193,11 +193,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-GSON解析Json" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/gallery/index.html" class="article-date">
-  	<time datetime="2015-11-14T13:21:32.000Z" itemprop="datePublished">2015-11-14</time>
+      <a href="/2015/12/24/GSON解析Json/" class="article-date">
+  	<time datetime="2015-12-24T15:54:54.000Z" itemprop="datePublished">2015-12-24</time>
 </a>
     </div>
   
@@ -210,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      gallery
+      GSON解析Json的一个小小Bug
     </h1>
   
 
@@ -218,6 +218,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gson/">Gson</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json解析/">json解析</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -226,7 +230,44 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>暂无任何照片</p>
+        <p>　　最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…<br><a id="more"></a></p>
+<hr>
+<p>　　由于最近项目需要我用Gson来解析JSON数据，并且返回的类型要求是一个List集合。因此我就直接用下面的代码成功解析：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">List</span>&lt;ContactsInfo.contacts&gt; jsonToListBean(String jsonString, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">ContactsInfo</span>.<span class="title">contacts</span>&gt; <span class="title">cls</span>) </span>{
+    <span class="comment">//这里的ContactsInfo.contacts是一个实体类</span>
+    <span class="keyword">List</span>&lt;ContactsInfo.contacts&gt; <span class="keyword">list</span> = <span class="keyword">null</span>;
+    <span class="keyword">try</span> {
+        Gson gson = <span class="keyword">new</span> Gson();
+        <span class="keyword">list</span> = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;<span class="keyword">List</span>&lt;ContactsInfo.contacts&gt;&gt;() {
+        }.getType());
+    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    }
+    <span class="keyword">return</span> <span class="keyword">list</span>;
+}
+</code></pre><p>　　<br>　　这样就成功解析了Json数据，但是这里的实体类是某一个具体的实体类，因此扩展性很不好。而我比较懒希望后面遇到这种就直接调用这个工具类就行，于是我就用泛型代替了里面的实体类，代码如下：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">List</span>&lt;T&gt; jsonFromList(String jsonString, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">T</span>&gt; <span class="title">cls</span>) </span>{
+    <span class="keyword">List</span>&lt;T&gt; <span class="keyword">list</span> = <span class="keyword">null</span>;
+    <span class="keyword">try</span> {
+        Gson gson = <span class="keyword">new</span> Gson();
+        <span class="keyword">list</span> = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;<span class="keyword">List</span>&lt;T&gt;&gt;() {
+        }.getType());
+    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    }
+    <span class="keyword">return</span> <span class="keyword">list</span>;
+}
+</code></pre><p>　　本来以为这样就能达到我想要的效果，但是…它居然报错了…。报<strong> java.lang.ClassCastException: com.google.gson.internal.LinkedTreeMap cannot be cast to com.example.Model.MessagesModel </strong>这个错误。于是经过我的几经百度终于找到了<a href="http://www.zhihu.com/question/27216298" target="_blank" rel="external">解决办法</a>。其报错的原因就是<strong> 泛型在编译期类型被擦除导致的 </strong>。于是我就通过下面的代码解决了问题：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">List</span>&lt;T&gt; fromJsonList(String json, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">T</span>&gt; <span class="title">clazz</span>) </span>{
+     <span class="keyword">List</span>&lt;T&gt; lst = <span class="keyword">new</span> ArrayList&lt;&gt;();
+    <span class="keyword">try</span> {
+        JsonArray <span class="keyword">array</span> = <span class="keyword">new</span> JsonParser().parse(json).getAsJsonArray();
+        <span class="keyword">for</span> (<span class="keyword">final</span> JsonElement elem : <span class="keyword">array</span>) {
+            lst.add(<span class="keyword">new</span> Gson().fromJson(elem, clazz));
+        }
+    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    }
+    <span class="keyword">return</span> lst;
+}
+</code></pre><p>　　上面就是我这次遇到的问题及解决办法，当然还有其他解决办法，就靠读者自己去研究，收工。</p>
 
       
     </div>
@@ -234,10 +275,40 @@
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/19/android屏幕适配/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">android屏幕适配</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
 
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="GSON解析Json" data-title="GSON解析Json的一个小小Bug" data-url="http://yoursite.com/2015/12/24/GSON解析Json/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
@@ -266,7 +337,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

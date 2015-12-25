@@ -4,7 +4,7 @@
   <subtitle><![CDATA[快乐的逗比程序员]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2015-12-13T07:10:41.713Z</updated>
+  <updated>2015-12-25T13:29:06.838Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -13,6 +13,104 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[GSON解析Json的一个小小Bug]]></title>
+    <link href="http://yoursite.com/2015/12/24/GSON%E8%A7%A3%E6%9E%90Json/"/>
+    <id>http://yoursite.com/2015/12/24/GSON解析Json/</id>
+    <published>2015-12-24T15:54:54.000Z</published>
+    <updated>2015-12-25T13:29:06.838Z</updated>
+    <content type="html"><![CDATA[<p>　　最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…<br><a id="more"></a></p>
+<hr>
+<p>　　由于最近项目需要我用Gson来解析JSON数据，并且返回的类型要求是一个List集合。因此我就直接用下面的代码成功解析：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">List</span>&lt;ContactsInfo.contacts&gt; jsonToListBean(String jsonString, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">ContactsInfo</span>.<span class="title">contacts</span>&gt; <span class="title">cls</span>) </span>{
+    <span class="comment">//这里的ContactsInfo.contacts是一个实体类</span>
+    <span class="keyword">List</span>&lt;ContactsInfo.contacts&gt; <span class="keyword">list</span> = <span class="keyword">null</span>;
+    <span class="keyword">try</span> {
+        Gson gson = <span class="keyword">new</span> Gson();
+        <span class="keyword">list</span> = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;<span class="keyword">List</span>&lt;ContactsInfo.contacts&gt;&gt;() {
+        }.getType());
+    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    }
+    <span class="keyword">return</span> <span class="keyword">list</span>;
+}
+</code></pre><p>　　<br>　　这样就成功解析了Json数据，但是这里的实体类是某一个具体的实体类，因此扩展性很不好。而我比较懒希望后面遇到这种就直接调用这个工具类就行，于是我就用泛型代替了里面的实体类，代码如下：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">List</span>&lt;T&gt; jsonFromList(String jsonString, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">T</span>&gt; <span class="title">cls</span>) </span>{
+    <span class="keyword">List</span>&lt;T&gt; <span class="keyword">list</span> = <span class="keyword">null</span>;
+    <span class="keyword">try</span> {
+        Gson gson = <span class="keyword">new</span> Gson();
+        <span class="keyword">list</span> = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;<span class="keyword">List</span>&lt;T&gt;&gt;() {
+        }.getType());
+    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    }
+    <span class="keyword">return</span> <span class="keyword">list</span>;
+}
+</code></pre><p>　　本来以为这样就能达到我想要的效果，但是…它居然报错了…。报<strong> java.lang.ClassCastException: com.google.gson.internal.LinkedTreeMap cannot be cast to com.example.Model.MessagesModel </strong>这个错误。于是经过我的几经百度终于找到了<a href="http://www.zhihu.com/question/27216298" target="_blank" rel="external">解决办法</a>。其报错的原因就是<strong> 泛型在编译期类型被擦除导致的 </strong>。于是我就通过下面的代码解决了问题：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">List</span>&lt;T&gt; fromJsonList(String json, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">T</span>&gt; <span class="title">clazz</span>) </span>{
+     <span class="keyword">List</span>&lt;T&gt; lst = <span class="keyword">new</span> ArrayList&lt;&gt;();
+    <span class="keyword">try</span> {
+        JsonArray <span class="keyword">array</span> = <span class="keyword">new</span> JsonParser().parse(json).getAsJsonArray();
+        <span class="keyword">for</span> (<span class="keyword">final</span> JsonElement elem : <span class="keyword">array</span>) {
+            lst.add(<span class="keyword">new</span> Gson().fromJson(elem, clazz));
+        }
+    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    }
+    <span class="keyword">return</span> lst;
+}
+</code></pre><p>　　上面就是我这次遇到的问题及解决办法，当然还有其他解决办法，就靠读者自己去研究，收工。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…<br>]]>
+    
+    </summary>
+    
+      <category term="Gson" scheme="http://yoursite.com/tags/Gson/"/>
+    
+      <category term="json解析" scheme="http://yoursite.com/tags/json%E8%A7%A3%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[android屏幕适配]]></title>
+    <link href="http://yoursite.com/2015/12/19/android%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D/"/>
+    <id>http://yoursite.com/2015/12/19/android屏幕适配/</id>
+    <published>2015-12-19T15:16:21.000Z</published>
+    <updated>2015-12-25T13:32:20.558Z</updated>
+    <content type="html"><![CDATA[<p>　　由于android系统的开源，使得任意一家手机厂商都能拿到android源码并按照自己的想法来生产Android手机。这样就带来了一个非常严重的问题，那就是android碎片化非常严重(<a href="http://www.umindex.com/devices/android_models" target="_blank" rel="external">具体数据可以参考友盟的统计</a>)。因此在我们进行android开发时需要考虑屏幕适配…<br><a id="more"></a></p>
+<h3 id="1、前言">1、前言</h3><p>　　先说一点废话，其实我有时会想PC端的碎片化其实比android都还严重，但是做web前端的可以根据百分比来设置宽高从而不用适配，那Android为什么也不通过这种方式来解决屏幕适配啊（听说android5.0以后已经支持用百分比来设置宽高，还有一些开源库也可以通过百分比来实现）？好了，我唠叨完了，哈哈。下面就来说说在android里面如何进行适配。</p>
+<h3 id="2、如何适配？">2、如何适配？</h3><p>　　首先开发时我们要基于主流屏幕来开发（比如现在的主流屏幕是1280*720）,要遵循不用AbsoluteLayout(绝对布局), 多用相对布局&amp;线性布局(权重), 要用dp,不用px的原则。这样基本上就没有大问题了。但是如果出问题了呢？就用下面五种方式来进行处理：</p>
+<blockquote>
+<p><strong><em> 图片适配： </em></strong>就是我们根据不同分辨率让美工切不同的图从而放在不同分辨率的文件夹（mdpi,hdpi,xdpi,xxdpi）下，但是由于我们一般只用一套图，因此此方法用的不多。<br><strong><em> 布局适配： </em></strong>根据不同分辨率来写不同的布局，如要适配480x800则需要在res文件下创建layout-800x480这样的文件夹，然后在其文件夹下写相应的布局。此方法用的也不多。<br><strong><em> 尺寸适配： </em></strong>根据<strong> dp = px/设备密度  </strong>这个公式来将px转化成dp，因此我们会根据需要将一些需要适配的长度放在<strong> dimens.xml </strong>文件夹下定义，然后根据分辨率来创建相应的value文件夹，如需适配1280x720则创建values-1280x720文件夹，因此此方法用的较多。<br><strong><em> 权重适配： </em></strong>主要用于线性布局，有点类似百分比来设置宽高的味道。我们可以通过<strong> android:weightSum=”3” </strong>来设置权重总数，局限性有点大<br><strong><em> 代码适配： </em></strong>获取屏幕宽高,动态计算控件大小，很少用</p>
+</blockquote>
+<h3 id="3、如何将px与dp之间进行转换？">3、如何将px与dp之间进行转换？</h3><pre><code><span class="comment">/**
+ * dp转px
+ */</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">dp2px</span><span class="params">(Context ctx, <span class="keyword">float</span> dp)</span> </span>{
+    <span class="comment">//获取当前设备的密度</span>
+    <span class="keyword">float</span> density = ctx.getResources().getDisplayMetrics().density;
+    <span class="keyword">int</span> px = (<span class="keyword">int</span>) (dp * density + <span class="number">0.5f</span>);<span class="comment">// 这里加上0.5f主要是为了提高精度</span>
+
+    <span class="keyword">return</span> px;
+}
+
+<span class="comment">//px转dp</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">px2dp</span><span class="params">(Context ctx, <span class="keyword">int</span> px)</span> </span>{
+    <span class="keyword">float</span> density = ctx.getResources().getDisplayMetrics().density;
+    <span class="keyword">float</span> dp = px / density;
+    <span class="keyword">return</span> dp;
+}
+</code></pre><p>通过上述方法我们就可以进行对android进行适配啦，如有不正之处，请指出。谢谢！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>　　由于android系统的开源，使得任意一家手机厂商都能拿到android源码并按照自己的想法来生产Android手机。这样就带来了一个非常严重的问题，那就是android碎片化非常严重(<a href="http://www.umindex.com/devices/android_models">具体数据可以参考友盟的统计</a>)。因此在我们进行android开发时需要考虑屏幕适配…<br>]]>
+    
+    </summary>
+    
+      <category term="屏幕适配" scheme="http://yoursite.com/tags/%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D/"/>
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Touch传递机制]]></title>
@@ -40,7 +138,7 @@
     <link href="http://yoursite.com/2015/12/13/%E4%BB%BFViewpager/"/>
     <id>http://yoursite.com/2015/12/13/仿Viewpager/</id>
     <published>2015-12-13T05:51:54.000Z</published>
-    <updated>2015-12-13T06:23:49.360Z</updated>
+    <updated>2015-12-25T13:00:35.992Z</updated>
     <content type="html"><![CDATA[<p>　　viewpager对于android开发者来说想必不陌生吧，那么我现在就来说说如何通过自定义来实现viewpager的效果…<br><a id="more"></a></p>
 <hr>
 <p>　　直接上代码，在代码中来理解吧，首先创创建MyScrollView.java：</p>

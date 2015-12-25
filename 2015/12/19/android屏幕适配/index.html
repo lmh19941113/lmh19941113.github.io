@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>gallery | 默默的博客</title>
+  <title>android屏幕适配 | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="暂无任何照片">
-<meta property="og:type" content="website">
-<meta property="og:title" content="gallery">
-<meta property="og:url" content="http://yoursite.com/gallery/index.html">
+  <meta name="description" content="由于android系统的开源，使得任意一家手机厂商都能拿到android源码并按照自己的想法来生产Android手机。这样就带来了一个非常严重的问题，那就是android碎片化非常严重(具体数据可以参考友盟的统计)。因此在我们进行android开发时需要考虑屏幕适配…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android屏幕适配">
+<meta property="og:url" content="http://yoursite.com/2015/12/19/android屏幕适配/index.html">
 <meta property="og:site_name" content="默默的博客">
-<meta property="og:description" content="暂无任何照片">
-<meta property="og:updated_time" content="2015-11-14T13:48:30.040Z">
+<meta property="og:description" content="由于android系统的开源，使得任意一家手机厂商都能拿到android源码并按照自己的想法来生产Android手机。这样就带来了一个非常严重的问题，那就是android碎片化非常严重(具体数据可以参考友盟的统计)。因此在我们进行android开发时需要考虑屏幕适配…">
+<meta property="og:updated_time" content="2015-12-25T13:32:20.558Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gallery">
-<meta name="twitter:description" content="暂无任何照片">
+<meta name="twitter:title" content="android屏幕适配">
+<meta name="twitter:description" content="由于android系统的开源，使得任意一家手机厂商都能拿到android源码并按照自己的想法来生产Android手机。这样就带来了一个非常严重的问题，那就是android碎片化非常严重(具体数据可以参考友盟的统计)。因此在我们进行android开发时需要考虑屏幕适配…">
   
     <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
   
@@ -193,11 +193,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-android屏幕适配" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/gallery/index.html" class="article-date">
-  	<time datetime="2015-11-14T13:21:32.000Z" itemprop="datePublished">2015-11-14</time>
+      <a href="/2015/12/19/android屏幕适配/" class="article-date">
+  	<time datetime="2015-12-19T15:16:21.000Z" itemprop="datePublished">2015-12-19</time>
 </a>
     </div>
   
@@ -210,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      gallery
+      android屏幕适配
     </h1>
   
 
@@ -218,6 +218,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/屏幕适配/">屏幕适配</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -226,7 +230,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>暂无任何照片</p>
+        <p>　　由于android系统的开源，使得任意一家手机厂商都能拿到android源码并按照自己的想法来生产Android手机。这样就带来了一个非常严重的问题，那就是android碎片化非常严重(<a href="http://www.umindex.com/devices/android_models" target="_blank" rel="external">具体数据可以参考友盟的统计</a>)。因此在我们进行android开发时需要考虑屏幕适配…<br><a id="more"></a></p>
+<h3 id="1、前言">1、前言</h3><p>　　先说一点废话，其实我有时会想PC端的碎片化其实比android都还严重，但是做web前端的可以根据百分比来设置宽高从而不用适配，那Android为什么也不通过这种方式来解决屏幕适配啊（听说android5.0以后已经支持用百分比来设置宽高，还有一些开源库也可以通过百分比来实现）？好了，我唠叨完了，哈哈。下面就来说说在android里面如何进行适配。</p>
+<h3 id="2、如何适配？">2、如何适配？</h3><p>　　首先开发时我们要基于主流屏幕来开发（比如现在的主流屏幕是1280*720）,要遵循不用AbsoluteLayout(绝对布局), 多用相对布局&amp;线性布局(权重), 要用dp,不用px的原则。这样基本上就没有大问题了。但是如果出问题了呢？就用下面五种方式来进行处理：</p>
+<blockquote>
+<p><strong><em> 图片适配： </em></strong>就是我们根据不同分辨率让美工切不同的图从而放在不同分辨率的文件夹（mdpi,hdpi,xdpi,xxdpi）下，但是由于我们一般只用一套图，因此此方法用的不多。<br><strong><em> 布局适配： </em></strong>根据不同分辨率来写不同的布局，如要适配480x800则需要在res文件下创建layout-800x480这样的文件夹，然后在其文件夹下写相应的布局。此方法用的也不多。<br><strong><em> 尺寸适配： </em></strong>根据<strong> dp = px/设备密度  </strong>这个公式来将px转化成dp，因此我们会根据需要将一些需要适配的长度放在<strong> dimens.xml </strong>文件夹下定义，然后根据分辨率来创建相应的value文件夹，如需适配1280x720则创建values-1280x720文件夹，因此此方法用的较多。<br><strong><em> 权重适配： </em></strong>主要用于线性布局，有点类似百分比来设置宽高的味道。我们可以通过<strong> android:weightSum=”3” </strong>来设置权重总数，局限性有点大<br><strong><em> 代码适配： </em></strong>获取屏幕宽高,动态计算控件大小，很少用</p>
+</blockquote>
+<h3 id="3、如何将px与dp之间进行转换？">3、如何将px与dp之间进行转换？</h3><pre><code><span class="comment">/**
+ * dp转px
+ */</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">dp2px</span><span class="params">(Context ctx, <span class="keyword">float</span> dp)</span> </span>{
+    <span class="comment">//获取当前设备的密度</span>
+    <span class="keyword">float</span> density = ctx.getResources().getDisplayMetrics().density;
+    <span class="keyword">int</span> px = (<span class="keyword">int</span>) (dp * density + <span class="number">0.5f</span>);<span class="comment">// 这里加上0.5f主要是为了提高精度</span>
+
+    <span class="keyword">return</span> px;
+}
+
+<span class="comment">//px转dp</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">float</span> <span class="title">px2dp</span><span class="params">(Context ctx, <span class="keyword">int</span> px)</span> </span>{
+    <span class="keyword">float</span> density = ctx.getResources().getDisplayMetrics().density;
+    <span class="keyword">float</span> dp = px / density;
+    <span class="keyword">return</span> dp;
+}
+</code></pre><p>通过上述方法我们就可以进行对android进行适配啦，如有不正之处，请指出。谢谢！</p>
 
       
     </div>
@@ -234,10 +261,49 @@
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/2015/12/24/GSON解析Json/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          GSON解析Json的一个小小Bug
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/12/13/Touch传递机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Touch传递机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
 
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="android屏幕适配" data-title="android屏幕适配" data-url="http://yoursite.com/2015/12/19/android屏幕适配/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
@@ -266,7 +332,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
