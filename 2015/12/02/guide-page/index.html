@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>android引导页的实现 | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="在第一次进入某些APP时，会有一个引导页面来告诉用户该怎么操作这个APP。而其中有些的引导页实现了这样一个功能，不知道有些人注意没，就是当我们手指滑动引导页时，引导页下面的小圆点也会随着手指滑动。关于这个功能我想有很多人都是用一些开源库写的（说实话，我不是很喜欢用一些开源库，虽然效率很高，但是对自己技术的提升不是很大，除非完全弄懂源码），而在这里我就教大家怎么来实现。">
@@ -21,8 +22,9 @@
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <div id="container">
     <div class="left-col">
@@ -40,7 +42,7 @@
 		</hgroup>
 
 		
-		<p class="header-subtitle">快乐的逗比程序员</p>
+		<p class="header-subtitle">越接近神就越会发现自己的渺小</p>
 		
 
 		
@@ -72,13 +74,13 @@
 				<div class="tips-box hide">
 					<div class="tips-arrow"></div>
 					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
+						<li>Menu</li>
+						<li>Tags</li>
 						
-						<li>友情链接</li>
+						<li>Links</li>
 						
 						
-						<li>关于我</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -104,13 +106,13 @@
 					<nav class="header-nav">
 						<div class="social">
 							
-								<a class="github" target="_blank" href="/#" title="github">github</a>
+								<a class="github" target="_blank" href="#" title="github">github</a>
 					        
-								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
 					        
-								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
 					        
-								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
 					        
 						</div>
 					</nav>
@@ -119,7 +121,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Gson/" style="font-size: 10px;">Gson</a> <a href="/tags/Handler消息传递机制/" style="font-size: 10px;">Handler消息传递机制</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/Touch传递机制/" style="font-size: 10px;">Touch传递机制</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/json解析/" style="font-size: 10px;">json解析</a> <a href="/tags/viewpager/" style="font-size: 10px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/三级缓存/" style="font-size: 10px;">三级缓存</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/加载图片/" style="font-size: 10px;">加载图片</a> <a href="/tags/屏幕适配/" style="font-size: 10px;">屏幕适配</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+						<a href="/tags/Gson/" style="font-size: 10px;">Gson</a> <a href="/tags/Handler消息传递机制/" style="font-size: 10px;">Handler消息传递机制</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/Touch传递机制/" style="font-size: 10px;">Touch传递机制</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/json解析/" style="font-size: 10px;">json解析</a> <a href="/tags/viewpager/" style="font-size: 10px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/三级缓存/" style="font-size: 10px;">三级缓存</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/加载图片/" style="font-size: 10px;">加载图片</a> <a href="/tags/屏幕适配/" style="font-size: 10px;">屏幕适配</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/自定义控件/" style="font-size: 13.33px;">自定义控件</a> <a href="/tags/随笔/" style="font-size: 16.67px;">随笔</a> <a href="/tags/面向holder/" style="font-size: 10px;">面向holder</a>
 					</div>
 				</section>
 				
@@ -145,6 +147,7 @@
 		</div>
 	</header>				
 </div>
+
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
@@ -155,13 +158,15 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
+			
 				<img lazy-src="http://7xo589.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
 			</div>
 			<hgroup>
 			  <h1 class="header-author">默默</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">快乐的逗比程序员</p>
+			<p class="header-subtitle">越接近神就越会发现自己的渺小</p>
 			
 			<nav class="header-menu">
 				<ul>
@@ -180,19 +185,20 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="/#" title="github">github</a>
+						<a class="github" target="_blank" href="#" title="github">github</a>
 			        
-						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
 			        
-						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
 			        
-						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
 			        
 				</div>
 			</nav>
 		</header>				
 	</div>
 </nav>
+
       <div class="body-wrap"><article id="post-guide-page" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -233,161 +239,161 @@
         <p>　　在第一次进入某些APP时，会有一个引导页面来告诉用户该怎么操作这个APP。而其中有些的引导页实现了这样一个功能，不知道有些人注意没，就是当我们手指滑动引导页时，引导页下面的小圆点也会随着手指滑动。关于这个功能我想有很多人都是用一些开源库写的（说实话，我不是很喜欢用一些开源库，虽然效率很高，但是对自己技术的提升不是很大，除非完全弄懂源码），而在这里我就教大家怎么来实现。<br><a id="more"></a></p>
 <hr>
 <p>　　首先我来说一下原理，其实实现是很简单的，因为引导页本身就是viewpager,所有我们只需要从后台获取到图片路径并加载到viewpager就行。至于下面的小圆点就是根据shape这个xml来实现。废话不多说直接上代码：<br>　　我们先来看xml代码：</p>
-<pre><code><span class="tag">&lt;<span class="title">RelativeLayout</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
-<span class="attribute">xmlns:tools</span>=<span class="value">"http://schemas.android.com/tools"</span>
-<span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
-<span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span> &gt;</span>
-<span class="comment">&lt;!---viewpager--&gt;</span>
-<span class="tag">&lt;<span class="title">android.support.v4.view.ViewPager</span>
-    <span class="attribute">android:id</span>=<span class="value">"@+id/vp_guide"</span>
-    <span class="attribute">android:layout_width</span>=<span class="value">"match_parent"</span>
-    <span class="attribute">android:layout_height</span>=<span class="value">"match_parent"</span> /&gt;</span>
+<pre><code>&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot; &gt;
+&lt;!---viewpager--&gt;
+&lt;android.support.v4.view.ViewPager
+    android:id=&quot;@+id/vp_guide&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot; /&gt;
 
-<span class="tag">&lt;<span class="title">RelativeLayout</span>
-    <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
-    <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
-    <span class="attribute">android:layout_alignParentBottom</span>=<span class="value">"true"</span>
-    <span class="attribute">android:layout_centerHorizontal</span>=<span class="value">"true"</span>
-    <span class="attribute">android:layout_marginBottom</span>=<span class="value">"20dp"</span> &gt;</span>
-    <span class="comment">&lt;!--装小圆点的布局--&gt;</span>
-    <span class="tag">&lt;<span class="title">LinearLayout</span>
-        <span class="attribute">android:id</span>=<span class="value">"@+id/ll_point_group"</span>
-        <span class="attribute">android:layout_width</span>=<span class="value">"wrap_content"</span>
-        <span class="attribute">android:layout_height</span>=<span class="value">"wrap_content"</span>
-        <span class="attribute">android:orientation</span>=<span class="value">"horizontal"</span> &gt;</span>
-    <span class="tag">&lt;/<span class="title">LinearLayout</span>&gt;</span>
-    <span class="comment">&lt;!--滑动的小圆点--&gt;</span>
-    <span class="tag">&lt;<span class="title">View</span>
-        <span class="attribute">android:id</span>=<span class="value">"@+id/view_red_point"</span>
-        <span class="attribute">android:layout_width</span>=<span class="value">"10dp"</span>
-        <span class="attribute">android:layout_height</span>=<span class="value">"10dp"</span>
-        <span class="attribute">android:background</span>=<span class="value">"@drawable/shape_point_red"</span> /&gt;</span>
-<span class="tag">&lt;/<span class="title">RelativeLayout</span>&gt;</span>
+&lt;RelativeLayout
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:layout_alignParentBottom=&quot;true&quot;
+    android:layout_centerHorizontal=&quot;true&quot;
+    android:layout_marginBottom=&quot;20dp&quot; &gt;
+    &lt;!--装小圆点的布局--&gt;
+    &lt;LinearLayout
+        android:id=&quot;@+id/ll_point_group&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot; &gt;
+    &lt;/LinearLayout&gt;
+    &lt;!--滑动的小圆点--&gt;
+    &lt;View
+        android:id=&quot;@+id/view_red_point&quot;
+        android:layout_width=&quot;10dp&quot;
+        android:layout_height=&quot;10dp&quot;
+        android:background=&quot;@drawable/shape_point_red&quot; /&gt;
+&lt;/RelativeLayout&gt;
 </code></pre><p></p>
 <p>　　我相信上面的代码都能看懂吧，如果不懂的话…<br>　　既然布局写好了，那么就来看小圆点的绘制的代码：</p>
-<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
-<span class="tag">&lt;<span class="title">shape</span> <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span>
-<span class="attribute">android:shape</span>=<span class="value">"oval"</span> &gt;</span>
-<span class="comment">&lt;!--android:shape="oval"就是代表绘制的是小圆点，这里也可以绘制其他图像，如圆环等--&gt;</span>
-<span class="comment">&lt;!--下面表示小圆点的颜色--&gt;</span>
-<span class="tag">&lt;<span class="title">solid</span> <span class="attribute">android:color</span>=<span class="value">"@android:color/darker_gray"</span> /&gt;</span>
-<span class="tag">&lt;/<span class="title">shape</span>&gt;</span>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:shape=&quot;oval&quot; &gt;
+&lt;!--android:shape=&quot;oval&quot;就是代表绘制的是小圆点，这里也可以绘制其他图像，如圆环等--&gt;
+&lt;!--下面表示小圆点的颜色--&gt;
+&lt;solid android:color=&quot;@android:color/darker_gray&quot; /&gt;
+&lt;/shape&gt;
 </code></pre><p>　　就这样布局文件就好了，那么就让我们来看下面的具体实现代码：</p>
-<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">OnPageChangeListener</span> </span>{
+<pre><code>public class MainActivity extends Activity implements OnPageChangeListener {
 &lt;!--引导页图片--&gt;
-<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>[] mImageIds = <span class="keyword">new</span> <span class="keyword">int</span>[] { R.drawable.guide_1,
+private static final int[] mImageIds = new int[] { R.drawable.guide_1,
         R.drawable.guide_2, R.drawable.guide_3 };
 
-<span class="keyword">private</span> ViewPager vpGuide;
-<span class="keyword">private</span> ArrayList&lt;ImageView&gt; mImageViewList;
+private ViewPager vpGuide;
+private ArrayList&lt;ImageView&gt; mImageViewList;
 
-<span class="keyword">private</span> LinearLayout llPointGroup;<span class="comment">// 引导圆点的父控件</span>
+private LinearLayout llPointGroup;// 引导圆点的父控件
 
-<span class="keyword">private</span> <span class="keyword">int</span> mPointWidth;<span class="comment">// 圆点间的距离</span>
+private int mPointWidth;// 圆点间的距离
 
-<span class="keyword">private</span> View viewRedPoint;<span class="comment">// 小红点</span>
+private View viewRedPoint;// 小红点
 
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
-    <span class="keyword">super</span>.onCreate(savedInstanceState);
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     vpGuide = (ViewPager) findViewById(R.id.vp_guide);
     llPointGroup = (LinearLayout) findViewById(R.id.ll_point_group);
     viewRedPoint = findViewById(R.id.view_red_point);
     initViews();
-    vpGuide.setAdapter(<span class="keyword">new</span> GuideAdapter());
-    vpGuide.setOnPageChangeListener(<span class="keyword">this</span>);
+    vpGuide.setAdapter(new GuideAdapter());
+    vpGuide.setOnPageChangeListener(this);
 }
 
-<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initViews</span><span class="params">()</span> </span>{
-    mImageViewList = <span class="keyword">new</span> ArrayList&lt;ImageView&gt;();
+private void initViews() {
+    mImageViewList = new ArrayList&lt;ImageView&gt;();
 
-    <span class="comment">// 初始化引导页的3个页面</span>
-    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mImageIds.length; i++) {
-        ImageView image = <span class="keyword">new</span> ImageView(<span class="keyword">this</span>);
-        image.setBackgroundResource(mImageIds[i]);<span class="comment">// 设置引导页背景</span>
+    // 初始化引导页的3个页面
+    for (int i = 0; i &lt; mImageIds.length; i++) {
+        ImageView image = new ImageView(this);
+        image.setBackgroundResource(mImageIds[i]);// 设置引导页背景
         mImageViewList.add(image);
     }
 
-    <span class="comment">// 初始化引导页的小圆点</span>
-    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mImageIds.length; i++) {
-        View point = <span class="keyword">new</span> View(<span class="keyword">this</span>);
-        point.setBackgroundResource(R.drawable.shape_point_gray);<span class="comment">// 设置引导页默认圆点</span>
+    // 初始化引导页的小圆点
+    for (int i = 0; i &lt; mImageIds.length; i++) {
+        View point = new View(this);
+        point.setBackgroundResource(R.drawable.shape_point_gray);// 设置引导页默认圆点
 
-        LinearLayout.LayoutParams params = <span class="keyword">new</span> LinearLayout.LayoutParams(
-                <span class="number">30</span>, <span class="number">30</span>);
-        <span class="keyword">if</span> (i &gt; <span class="number">0</span>) {
-            params.leftMargin = <span class="number">10</span>;<span class="comment">// 设置圆点间隔</span>
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                30, 30);
+        if (i &gt; 0) {
+            params.leftMargin = 10;// 设置圆点间隔
         }
 
-        point.setLayoutParams(params);<span class="comment">// 设置圆点的大小</span>
+        point.setLayoutParams(params);// 设置圆点的大小
 
-        llPointGroup.addView(point);<span class="comment">// 将圆点添加给线性布局</span>
+        llPointGroup.addView(point);// 将圆点添加给线性布局
     }
-    <span class="comment">//界面绘制是要调用measure():测量，layout():界面位置，onDraw():绘制三个方法</span>
-    <span class="comment">// 得到两个小灰点之间的间距(这里拿到的是0，因为在oncreate()方法里，界面还没绘制完成)</span>
-<span class="comment">//        mPointWidth = llPointGroup.getChildAt(1).getLeft()</span>
-<span class="comment">//                - llPointGroup.getChildAt(0).getLeft();</span>
-    <span class="comment">//获取到视图树（观察者模式）</span>
-    llPointGroup.getViewTreeObserver().addOnGlobalLayoutListener(<span class="keyword">new</span> OnGlobalLayoutListener() {
-        <span class="comment">//当调用layout()方法结束后调用此方法</span>
-        <span class="annotation">@Override</span>
-        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onGlobalLayout</span><span class="params">()</span> </span>{
-            <span class="comment">//已过时，</span>
-            llPointGroup.getViewTreeObserver().removeGlobalOnLayoutListener(<span class="keyword">this</span>);
-            <span class="comment">//最新的，但是最低兼容貌似是14</span>
-            <span class="comment">//llPointGroup.getViewTreeObserver().removeOnGlobalLayoutListener(this);</span>
-            mPointWidth = llPointGroup.getChildAt(<span class="number">1</span>).getLeft()
-                    - llPointGroup.getChildAt(<span class="number">0</span>).getLeft();
+    //界面绘制是要调用measure():测量，layout():界面位置，onDraw():绘制三个方法
+    // 得到两个小灰点之间的间距(这里拿到的是0，因为在oncreate()方法里，界面还没绘制完成)
+//        mPointWidth = llPointGroup.getChildAt(1).getLeft()
+//                - llPointGroup.getChildAt(0).getLeft();
+    //获取到视图树（观察者模式）
+    llPointGroup.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+        //当调用layout()方法结束后调用此方法
+        @Override
+        public void onGlobalLayout() {
+            //已过时，
+            llPointGroup.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            //最新的，但是最低兼容貌似是14
+            //llPointGroup.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            mPointWidth = llPointGroup.getChildAt(1).getLeft()
+                    - llPointGroup.getChildAt(0).getLeft();
         }
     });
 }
 
-<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">GuideAdapter</span> <span class="keyword">extends</span> <span class="title">PagerAdapter</span> </span>{
+private class GuideAdapter extends PagerAdapter {
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> mImageIds.length;
+    @Override
+    public int getCount() {
+        return mImageIds.length;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isViewFromObject</span><span class="params">(View arg0, Object arg1)</span> </span>{
-        <span class="keyword">return</span> arg0 == arg1;
+    @Override
+    public boolean isViewFromObject(View arg0, Object arg1) {
+        return arg0 == arg1;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position)</span> </span>{
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
         container.addView(mImageViewList.get(position));
-        <span class="keyword">return</span> mImageViewList.get(position);
+        return mImageViewList.get(position);
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroyItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position, Object object)</span> </span>{
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
     }
 
 }
 
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrollStateChanged</span><span class="params">(<span class="keyword">int</span> arg0)</span> </span>{
+@Override
+public void onPageScrollStateChanged(int arg0) {
 }
 
-<span class="comment">// 第二个参数是viewpager滑动的百分比</span>
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrolled</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">float</span> positionOffset,
-        <span class="keyword">int</span> positionOffsetPixels)</span> </span>{
-    <span class="comment">// System.out.println("当前位置:" + position + ";百分比:" + positionOffset</span>
-    <span class="comment">// + ";移动距离:" + positionOffsetPixels);</span>
-    <span class="keyword">int</span> len=(<span class="keyword">int</span>) (positionOffset*mPointWidth)+position*mPointWidth;
+// 第二个参数是viewpager滑动的百分比
+@Override
+public void onPageScrolled(int position, float positionOffset,
+        int positionOffsetPixels) {
+    // System.out.println(&quot;当前位置:&quot; + position + &quot;;百分比:&quot; + positionOffset
+    // + &quot;;移动距离:&quot; + positionOffsetPixels);
+    int len=(int) (positionOffset*mPointWidth)+position*mPointWidth;
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) viewRedPoint
-            .getLayoutParams();<span class="comment">// 获取当前红点的布局参数</span>
-    params.leftMargin = len;<span class="comment">// 设置左边距</span>
+            .getLayoutParams();// 获取当前红点的布局参数
+    params.leftMargin = len;// 设置左边距
 
-    viewRedPoint.setLayoutParams(params);<span class="comment">// 重新给小红点设置布局参数</span>
+    viewRedPoint.setLayoutParams(params);// 重新给小红点设置布局参数
 }
 
-<span class="annotation">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> arg0)</span> </span>{
+@Override
+public void onPageSelected(int arg0) {
 }
 }
 </code></pre><p>　　这样就实现了引导页下面的小圆点随着手指的滑动而滑动了。由于我暂不会gif动画的制作，因此就没有效果图。有误的地方希望大家指出，谢谢。</p>
@@ -423,6 +429,8 @@
 
 
 
+
+
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key="guide-page" data-title="android引导页的实现" data-url="http://yoursite.com/2015/12/02/guide-page/"></div>
@@ -450,7 +458,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2015 默默
+    		&copy; 2016 默默
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -460,7 +468,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -476,8 +484,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

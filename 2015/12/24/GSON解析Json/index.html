@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>GSON解析Json的一个小小Bug | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…">
@@ -21,8 +22,9 @@
   
     <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
   <div id="container">
     <div class="left-col">
@@ -40,7 +42,7 @@
 		</hgroup>
 
 		
-		<p class="header-subtitle">快乐的逗比程序员</p>
+		<p class="header-subtitle">越接近神就越会发现自己的渺小</p>
 		
 
 		
@@ -72,13 +74,13 @@
 				<div class="tips-box hide">
 					<div class="tips-arrow"></div>
 					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
+						<li>Menu</li>
+						<li>Tags</li>
 						
-						<li>友情链接</li>
+						<li>Links</li>
 						
 						
-						<li>关于我</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -104,13 +106,13 @@
 					<nav class="header-nav">
 						<div class="social">
 							
-								<a class="github" target="_blank" href="/#" title="github">github</a>
+								<a class="github" target="_blank" href="#" title="github">github</a>
 					        
-								<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
 					        
-								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
 					        
-								<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
 					        
 						</div>
 					</nav>
@@ -119,7 +121,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Gson/" style="font-size: 10px;">Gson</a> <a href="/tags/Handler消息传递机制/" style="font-size: 10px;">Handler消息传递机制</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/Touch传递机制/" style="font-size: 10px;">Touch传递机制</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/json解析/" style="font-size: 10px;">json解析</a> <a href="/tags/viewpager/" style="font-size: 10px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/三级缓存/" style="font-size: 10px;">三级缓存</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/加载图片/" style="font-size: 10px;">加载图片</a> <a href="/tags/屏幕适配/" style="font-size: 10px;">屏幕适配</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/随笔/" style="font-size: 15px;">随笔</a>
+						<a href="/tags/Gson/" style="font-size: 10px;">Gson</a> <a href="/tags/Handler消息传递机制/" style="font-size: 10px;">Handler消息传递机制</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/Touch传递机制/" style="font-size: 10px;">Touch传递机制</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/json解析/" style="font-size: 10px;">json解析</a> <a href="/tags/viewpager/" style="font-size: 10px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/三级缓存/" style="font-size: 10px;">三级缓存</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/加载图片/" style="font-size: 10px;">加载图片</a> <a href="/tags/屏幕适配/" style="font-size: 10px;">屏幕适配</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/自定义控件/" style="font-size: 13.33px;">自定义控件</a> <a href="/tags/随笔/" style="font-size: 16.67px;">随笔</a> <a href="/tags/面向holder/" style="font-size: 10px;">面向holder</a>
 					</div>
 				</section>
 				
@@ -145,6 +147,7 @@
 		</div>
 	</header>				
 </div>
+
     </div>
     <div class="mid-col">
       <nav id="mobile-nav">
@@ -155,13 +158,15 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
+			
 				<img lazy-src="http://7xo589.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
 			</div>
 			<hgroup>
 			  <h1 class="header-author">默默</h1>
 			</hgroup>
 			
-			<p class="header-subtitle">快乐的逗比程序员</p>
+			<p class="header-subtitle">越接近神就越会发现自己的渺小</p>
 			
 			<nav class="header-menu">
 				<ul>
@@ -180,19 +185,20 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="/#" title="github">github</a>
+						<a class="github" target="_blank" href="#" title="github">github</a>
 			        
-						<a class="weibo" target="_blank" href="/#" title="weibo">weibo</a>
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
 			        
-						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
 			        
-						<a class="zhihu" target="_blank" href="/#" title="zhihu">zhihu</a>
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
 			        
 				</div>
 			</nav>
 		</header>				
 	</div>
 </nav>
+
       <div class="body-wrap"><article id="post-GSON解析Json" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -233,39 +239,39 @@
         <p>　　最近在用Gson解析json数据时，遇到了一个Gson解析带泛型的List集合的问题。由于不好百度，所有在此简单说一下我的解决办法…<br><a id="more"></a></p>
 <hr>
 <p>　　由于最近项目需要我用Gson来解析JSON数据，并且返回的类型要求是一个List集合。因此我就直接用下面的代码成功解析：</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">List</span>&lt;ContactsInfo.contacts&gt; jsonToListBean(String jsonString, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">ContactsInfo</span>.<span class="title">contacts</span>&gt; <span class="title">cls</span>) </span>{
-    <span class="comment">//这里的ContactsInfo.contacts是一个实体类</span>
-    <span class="keyword">List</span>&lt;ContactsInfo.contacts&gt; <span class="keyword">list</span> = <span class="keyword">null</span>;
-    <span class="keyword">try</span> {
-        Gson gson = <span class="keyword">new</span> Gson();
-        <span class="keyword">list</span> = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;<span class="keyword">List</span>&lt;ContactsInfo.contacts&gt;&gt;() {
+<pre><code>public static List&lt;ContactsInfo.contacts&gt; jsonToListBean(String jsonString, Class&lt;ContactsInfo.contacts&gt; cls) {
+    //这里的ContactsInfo.contacts是一个实体类
+    List&lt;ContactsInfo.contacts&gt; list = null;
+    try {
+        Gson gson = new Gson();
+        list = gson.fromJson(jsonString, new TypeToken&lt;List&lt;ContactsInfo.contacts&gt;&gt;() {
         }.getType());
-    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    } catch (Exception e) {
     }
-    <span class="keyword">return</span> <span class="keyword">list</span>;
+    return list;
 }
 </code></pre><p>　　<br>　　这样就成功解析了Json数据，但是这里的实体类是某一个具体的实体类，因此扩展性很不好。而我比较懒希望后面遇到这种就直接调用这个工具类就行，于是我就用泛型代替了里面的实体类，代码如下：</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">List</span>&lt;T&gt; jsonFromList(String jsonString, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">T</span>&gt; <span class="title">cls</span>) </span>{
-    <span class="keyword">List</span>&lt;T&gt; <span class="keyword">list</span> = <span class="keyword">null</span>;
-    <span class="keyword">try</span> {
-        Gson gson = <span class="keyword">new</span> Gson();
-        <span class="keyword">list</span> = gson.fromJson(jsonString, <span class="keyword">new</span> TypeToken&lt;<span class="keyword">List</span>&lt;T&gt;&gt;() {
+<pre><code>public static &lt;T&gt; List&lt;T&gt; jsonFromList(String jsonString, Class&lt;T&gt; cls) {
+    List&lt;T&gt; list = null;
+    try {
+        Gson gson = new Gson();
+        list = gson.fromJson(jsonString, new TypeToken&lt;List&lt;T&gt;&gt;() {
         }.getType());
-    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    } catch (Exception e) {
     }
-    <span class="keyword">return</span> <span class="keyword">list</span>;
+    return list;
 }
 </code></pre><p>　　本来以为这样就能达到我想要的效果，但是…它居然报错了…。报<strong> java.lang.ClassCastException: com.google.gson.internal.LinkedTreeMap cannot be cast to com.example.Model.MessagesModel </strong>这个错误。于是经过我的几经百度终于找到了<a href="http://www.zhihu.com/question/27216298" target="_blank" rel="external">解决办法</a>。其报错的原因就是<strong> 泛型在编译期类型被擦除导致的 </strong>。于是我就通过下面的代码解决了问题：</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">List</span>&lt;T&gt; fromJsonList(String json, <span class="class"><span class="keyword">Class</span>&lt;<span class="title">T</span>&gt; <span class="title">clazz</span>) </span>{
-     <span class="keyword">List</span>&lt;T&gt; lst = <span class="keyword">new</span> ArrayList&lt;&gt;();
-    <span class="keyword">try</span> {
-        JsonArray <span class="keyword">array</span> = <span class="keyword">new</span> JsonParser().parse(json).getAsJsonArray();
-        <span class="keyword">for</span> (<span class="keyword">final</span> JsonElement elem : <span class="keyword">array</span>) {
-            lst.add(<span class="keyword">new</span> Gson().fromJson(elem, clazz));
+<pre><code>public static &lt;T&gt; List&lt;T&gt; fromJsonList(String json, Class&lt;T&gt; clazz) {
+     List&lt;T&gt; lst = new ArrayList&lt;&gt;();
+    try {
+        JsonArray array = new JsonParser().parse(json).getAsJsonArray();
+        for (final JsonElement elem : array) {
+            lst.add(new Gson().fromJson(elem, clazz));
         }
-    } <span class="keyword">catch</span> (<span class="keyword">Exception</span> e) {
+    } catch (Exception e) {
     }
-    <span class="keyword">return</span> lst;
+    return lst;
 }
 </code></pre><p>　　上面就是我这次遇到的问题及解决办法，当然还有其他解决办法，就靠读者自己去研究，收工。</p>
 
@@ -277,6 +283,15 @@
     
 <nav id="article-nav">
   
+    <a href="/2016/01/02/面向holder编程/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          面向holder编程
+        
+      </div>
+    </a>
+  
   
     <a href="/2015/12/19/android屏幕适配/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">android屏幕适配</div>
@@ -287,6 +302,8 @@
 
   
 </article>
+
+
 
 
 
@@ -318,7 +335,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2015 默默
+    		&copy; 2016 默默
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -328,7 +345,7 @@
 </footer>
     </div>
     
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
 
 
 <script>
@@ -344,8 +361,8 @@
 		open_in_new: false
 	}
 </script>
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="/js/main.js" type="text/javascript"></script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
 
 
 

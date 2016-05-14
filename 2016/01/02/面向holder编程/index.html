@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>我们是否应该自己“造轮子”？ | 默默的博客</title>
+  <title>面向holder编程 | 默默的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="谈谈自己对软件开发中“轮子”的一些看法">
+  <meta name="description" content="我在这里说到面向holder编程，或许有人会问什么是面向holder啊？其实面向holder就是把一个页面的能拆分的布局都当做一个holder，然后每个人就来做这样的一个holder，从而加快项目的开发进度。也让代码更加清爽、简洁、便于管理…">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我们是否应该自己“造轮子”？">
-<meta property="og:url" content="http://yoursite.com/2015/12/12/frame-discussion/index.html">
+<meta property="og:title" content="面向holder编程">
+<meta property="og:url" content="http://yoursite.com/2016/01/02/面向holder编程/index.html">
 <meta property="og:site_name" content="默默的博客">
-<meta property="og:description" content="谈谈自己对软件开发中“轮子”的一些看法">
-<meta property="og:updated_time" content="2015-12-13T02:57:11.846Z">
+<meta property="og:description" content="我在这里说到面向holder编程，或许有人会问什么是面向holder啊？其实面向holder就是把一个页面的能拆分的布局都当做一个holder，然后每个人就来做这样的一个holder，从而加快项目的开发进度。也让代码更加清爽、简洁、便于管理…">
+<meta property="og:updated_time" content="2016-01-25T15:10:09.504Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我们是否应该自己“造轮子”？">
-<meta name="twitter:description" content="谈谈自己对软件开发中“轮子”的一些看法">
+<meta name="twitter:title" content="面向holder编程">
+<meta name="twitter:description" content="我在这里说到面向holder编程，或许有人会问什么是面向holder啊？其实面向holder就是把一个页面的能拆分的布局都当做一个holder，然后每个人就来做这样的一个holder，从而加快项目的开发进度。也让代码更加清爽、简洁、便于管理…">
   
     <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
   
@@ -199,11 +199,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-frame-discussion" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-面向holder编程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/12/frame-discussion/" class="article-date">
-  	<time datetime="2015-12-12T02:22:54.000Z" itemprop="datePublished">2015-12-12</time>
+      <a href="/2016/01/02/面向holder编程/" class="article-date">
+  	<time datetime="2016-01-02T14:34:38.000Z" itemprop="datePublished">2016-01-02</time>
 </a>
     </div>
   
@@ -216,7 +216,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      我们是否应该自己“造轮子”？
+      面向holder编程
     </h1>
   
 
@@ -225,7 +225,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面向holder/">面向holder</a></li></ul>
 	</div>
 
         
@@ -236,11 +236,150 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>　　谈谈自己对软件开发中“轮子”的一些看法<br><a id="more"></a></p>
-<h2 id="什么是轮子？"><a href="#什么是轮子？" class="headerlink" title="什么是轮子？"></a>什么是轮子？</h2><p>　　在开发中我们有时候会听到别人说：“我们不要重复造轮子”、“自己写轮子的话很麻烦”等，那么什么是轮子啊？其实就是我们开发过程中使用的一些开源库或者框架，比如JavaWeb中的SSH、SSH2、Hibernate以及现在很火的SpringMVC等，android中的Glide、xutils、Volley等，以及别人写的demo。</p>
-<h2 id="轮子的利弊"><a href="#轮子的利弊" class="headerlink" title="轮子的利弊"></a>轮子的利弊</h2><p>　　“不要重复造轮子 Stop Trying to Reinvent the Wheel”， 可能是每个程序员入行被告知的第一条准则。因为在我们入行时，别人会说，人家把轮子写好了，又很好用那么就何必自己来造轮子呢？对，这就是轮子的优点之一，简单、好用，能使很多人少写很多代码就能达到相同的效果。还有“轮子”将一些复杂的功能进行封装，让一些新手能够实现一些较复杂的功能。但是如果我们只是使用轮子，不去了解其中的原理。就会让我们成为轮子的奴隶，离开轮子后我们什么都不会，对自己百害而无一利。总而言之我们使用轮子是既有利又有害的，利是能够提升开发效率，将一些开发门槛降低了，并且方便好用；害的是容易使我们过度依赖于轮子，不去对自己技术的进行提升。</p>
-<h2 id="是否该自己造轮子？"><a href="#是否该自己造轮子？" class="headerlink" title="是否该自己造轮子？"></a>是否该自己造轮子？</h2><p>　　既然轮子的使用对技术提升不是很大，那么我们是否该自己造轮子呢？其实也不对，当我们技术不是很牛逼时最好还是使用轮子比较好，因为我们在公司开发项目时，要求的是效率，代码健壮。而自己造的轮子难免会有各种bug，到时候改的话会有很多问题，影响项目开发效率。只有我们技术牛逼时才考虑去自己造轮子。因此我建议只有我们技术牛逼时采取造轮子（因为在我看来要造轮子就要造一个好轮子）。</p>
-<h2 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h2><p>　　以我的开发经验来看，推荐使用一些好轮子（有api文档，demo，有一定的人使用的轮子），并且使用后还得理解轮子的代码实现及原理，但是我们还是得与轮子保持一定距离（避免过度依赖轮子）。当能力达到一定程度后就自己开始写轮子，这样才能对自己技术有很大的提升。<br>　　如有不正之处，请留言…</p>
+        <p>　　我在这里说到面向holder编程，或许有人会问什么是面向holder啊？其实面向holder就是把一个页面的能拆分的布局都当做一个holder，然后每个人就来做这样的一个holder，从而加快项目的开发进度。也让代码更加清爽、简洁、便于管理…<br><a id="more"></a></p>
+<h3 id="1、引言"><a href="#1、引言" class="headerlink" title="1、引言"></a>1、引言</h3><p>　　说到Holder，或或许有一种熟悉感，但是又不知道在哪里用过，但是仔细想想就会发现其实我们在ListView或者GridView的adapter里面就用到了Holder的。下面就来回忆一下是怎么使用的。</p>
+<h3 id="2、Adapter的封装"><a href="#2、Adapter的封装" class="headerlink" title="2、Adapter的封装"></a>2、Adapter的封装</h3><p>　　一般我们用adapter时，会发现getCount()、getItem(int position)、getItemId(int position)这三个方法的代码几乎一样，因此我们就将这些代码提出来封装成一个单独的类。代码如下：</p>
+<pre><code>public abstract class MyBaseAdapter&lt;T&gt; extends BaseAdapter {
+protected Context context;
+public List&lt;T&gt; mList;
+protected LayoutInflater inflater;
+
+public MyBaseAdapter(Context context, List&lt;T&gt; mList) {
+    this.context = context;
+    this.mList = mList;
+    inflater = (LayoutInflater) context
+            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+}
+
+@Override
+public int getCount() {
+    return mList.size();
+}
+
+@Override
+public Object getItem(int position) {
+    return mList.get(position);
+}
+
+@Override
+public long getItemId(int position) {
+    return position;
+}
+
+@Override
+public abstract View getView(int position, View convertView,
+                             ViewGroup parent);
+
+//更新adapter
+public void setList(List&lt;T&gt; mList) {
+    this.mList = mList;
+    notifyDataSetChanged();
+}
+}
+</code></pre><p>　　然后在每次使用adapter时再来创建Holder，然后再在getView(int position, View convertView, ViewGroup parent)的具体实现方法中来调用Holder。但是一个项目的adapter比较多时，不停的创建holder跟实现getView(int position, View convertView, ViewGroup parent)就很麻烦、那么我们能不能进一步的封装呢？那么就请看下面。</p>
+<h3 id="3、adapter的进一步封装"><a href="#3、adapter的进一步封装" class="headerlink" title="3、adapter的进一步封装"></a>3、adapter的进一步封装</h3><p>　　首先我来说一下，getView(int position, View convertView, ViewGroup parent)里面的convertView就是缓存的布局，也就是我们可以把这个布局的加载放在自己写的Holder里面去。然后也就可以把对于convertView布局及其控件写到Holder里面去，然后getView(int position, View convertView, ViewGroup parent)就只是返回一个View就行了。然后在把Holder里面的相同的代码提取出来（这里说的比较抽象）。我们先来看看代码吧，将getView(int position, View convertView, ViewGroup parent)也封装起来。代码如下：</p>
+<pre><code>public abstract class MyBaseAdapter&lt;Data&gt; extends BaseAdapter {
+private Context context;
+private List&lt;Data&gt; list;
+
+public MyBaseAdapter(List&lt;Data&gt; list) {
+    this.list = list;
+}
+
+@Override
+public int getCount() {
+    return list.size();
+}
+
+@Override
+public Object getItem(int position) {
+    return list.get(position);
+}
+
+@Override
+public long getItemId(int position) {
+    return position;
+}
+
+public void setList(List&lt;Data&gt; list) {
+    this.list = list;
+    notifyDataSetChanged();
+}
+
+@Override
+public View getView(int position, View convertView,
+        ViewGroup parent) {
+    BaseHolder&lt;Data&gt; holder;
+    if (convertView == null) {
+        holder = getHolder();
+    } else {
+        holder = (BaseHolder) convertView.getTag();
+    }
+    Data str = list.get(position);
+    holder.setData(str);
+    return holder.getView();
+}
+
+public abstract BaseHolder&lt;Data&gt; getHolder();
+
+}
+</code></pre><p>　　这里的Data表示泛型（如果不懂泛型请看Java基础）。然后我们在写一个BaseHolder的类，代码如下：</p>
+<pre><code>public abstract class BaseHolder&lt;Data&gt; {
+private View convertView;
+
+public BaseHolder() {
+    convertView=initView();
+    convertView.setTag(this);
+}
+
+public void setData(Data data) {
+    refreshView(data);
+}
+public View getView() {
+    return convertView;
+}
+//将数据给相应的控件
+public abstract void refreshView(Data data);
+
+//初始化控件
+public abstract View initView();
+}
+</code></pre><p>　　这样我们将adapter封装好了，我们就来看一下调用这些类的代码：</p>
+<pre><code>private class MyAdapter extends MyBaseAdapter&lt;String&gt; {
+
+    public MyAdapter(List&lt;String&gt; list) {
+        super(list);
+    }
+
+    @Override
+    public BaseHolder&lt;String&gt; getHolder() {
+        return new ViewHolder();
+    }
+}
+
+private class ViewHolder extends BaseHolder&lt;String&gt; {
+    private TextView text;
+    private ImageView image;
+
+    @Override
+    public void refreshView(String str) {
+        this.text.setText(str);
+    }
+
+    @Override
+    public View initView() {
+        View convertView = View.inflate(getApplicationContext(),
+                R.layout.item_list, null);
+        this.image = (ImageView) convertView
+                .findViewById(R.id.item_list_img);
+        this.text = (TextView) convertView
+                .findViewById(R.id.item_list_text);
+        return convertView;
+    }
+}
+</code></pre><p>　　这样我们是不是就只需要操作ViewHolder这个类了啊，就很方便了，哈哈
+　　</p>
+<h3 id="4、面向Holder编程"><a href="#4、面向Holder编程" class="headerlink" title="4、面向Holder编程"></a>4、面向Holder编程</h3><p>　　但是仅仅是因为能将adapter进一步封装还吸引不了我的注意力，并且我认为第一步的封装已经很不错了。但是我为什么还要说呢？是因为这里有一个<strong><strong> 面向Holder的思想 </strong></strong>。这里的Holder不仅仅局限于adapter里面了。因为Holder主要是加载布局跟赋值，那么我们就可以把一个页面看做由若干个Holder组成。这样我们就能把一个复杂的页面交给多个人做，从而来提升效率，也能使一个项目的分工更明确，出现的问题更少。这就是面向Holder，也能避免一些菜鸟乱改代码。</p>
 
       
     </div>
@@ -250,18 +389,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/13/handler/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/01/23/android标签页面的展示/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Handler消息传递机制
+          android标签页面的展示
         
       </div>
     </a>
   
   
-    <a href="/2015/12/06/three-cache/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">android三级缓存浅谈</div>
+    <a href="/2015/12/24/GSON解析Json/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GSON解析Json的一个小小Bug</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -277,7 +416,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="frame-discussion" data-title="我们是否应该自己“造轮子”？" data-url="http://yoursite.com/2015/12/12/frame-discussion/"></div>
+	<div class="ds-thread" data-thread-key="面向holder编程" data-title="面向holder编程" data-url="http://yoursite.com/2016/01/02/面向holder编程/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

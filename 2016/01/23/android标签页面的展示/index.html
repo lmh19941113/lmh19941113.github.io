@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>android标签页面的展示 | 默默的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本篇博客主要是实现一个较复杂的自定义控件，将一个个标签不规则的显示在每一行，类似瀑布流效果。详情如下…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android标签页面的展示">
+<meta property="og:url" content="http://yoursite.com/2016/01/23/android标签页面的展示/index.html">
+<meta property="og:site_name" content="默默的博客">
+<meta property="og:description" content="本篇博客主要是实现一个较复杂的自定义控件，将一个个标签不规则的显示在每一行，类似瀑布流效果。详情如下…">
+<meta property="og:image" content="http://7xo589.com1.z0.glb.clouddn.com/20160126230534.png">
+<meta property="og:updated_time" content="2016-01-26T15:38:47.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android标签页面的展示">
+<meta name="twitter:description" content="本篇博客主要是实现一个较复杂的自定义控件，将一个个标签不规则的显示在每一行，类似瀑布流效果。详情如下…">
+<meta name="twitter:image" content="http://7xo589.com1.z0.glb.clouddn.com/20160126230534.png">
+  
+    <link rel="alternative" href="/atom.xml" title="默默的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xo589.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">默默</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">越接近神就越会发现自己的渺小</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/tags/随笔">随笔</a></li>
+				        
+							<li><a href="/gallery">相册</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Gson/" style="font-size: 10px;">Gson</a> <a href="/tags/Handler消息传递机制/" style="font-size: 10px;">Handler消息传递机制</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/ListView下拉刷新跟上拉加载/" style="font-size: 10px;">ListView下拉刷新跟上拉加载</a> <a href="/tags/MD5/" style="font-size: 10px;">MD5</a> <a href="/tags/Touch传递机制/" style="font-size: 10px;">Touch传递机制</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/json解析/" style="font-size: 10px;">json解析</a> <a href="/tags/viewpager/" style="font-size: 10px;">viewpager</a> <a href="/tags/volley/" style="font-size: 10px;">volley</a> <a href="/tags/xutils3/" style="font-size: 10px;">xutils3</a> <a href="/tags/三级缓存/" style="font-size: 10px;">三级缓存</a> <a href="/tags/上传图片/" style="font-size: 10px;">上传图片</a> <a href="/tags/加载图片/" style="font-size: 10px;">加载图片</a> <a href="/tags/屏幕适配/" style="font-size: 10px;">屏幕适配</a> <a href="/tags/网络请求/" style="font-size: 10px;">网络请求</a> <a href="/tags/自定义控件/" style="font-size: 13.33px;">自定义控件</a> <a href="/tags/随笔/" style="font-size: 16.67px;">随笔</a> <a href="/tags/面向holder/" style="font-size: 10px;">面向holder</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.csdn.net/boxrice">走在路上的程序员的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">默默</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="http://7xo589.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">默默</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">越接近神就越会发现自己的渺小</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/随笔">随笔</a></li>
+		        
+					<li><a href="/gallery">相册</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-android标签页面的展示" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/23/android标签页面的展示/" class="article-date">
+  	<time datetime="2016-01-23T04:36:51.000Z" itemprop="datePublished">2016-01-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android标签页面的展示
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自定义控件/">自定义控件</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　本篇博客主要是实现一个较复杂的自定义控件，将一个个标签不规则的显示在每一行，类似瀑布流效果。详情如下…<br><a id="more"></a></p>
+<hr>
+<p>　　首先我们先来看看如下的效果图：<br>　　<img src="http://7xo589.com1.z0.glb.clouddn.com/20160126230534.png" alt=""><br>　　可能有读者看到上面效果图感到无从下手，或者用瀑布流、GridView等等。但是你们有没有想过自己写个这样的自定义控件吗？或许这个自定义控件的难度难到了很多人，那么下面我们就来看看这个自定义控件是如何实现的。</p>
+<h3 id="1、创建每个标签及代码实现圆角、selector点击效果"><a href="#1、创建每个标签及代码实现圆角、selector点击效果" class="headerlink" title="1、创建每个标签及代码实现圆角、selector点击效果"></a>1、创建每个标签及代码实现圆角、selector点击效果</h3><p>　　看到这里的标签，我们第一反应是TextView来实现的。没错，我们这里也是用TextView来实现的额，并且这里的TextView只能在代码里面动态添加。下面就让我们来看看怎么添加标签：</p>
+<pre><code>public class MainActivity extends Activity {
+private Flowlayout layout;
+private String[] str = { &quot;支付宝钱包&quot;, &quot;QQ&quot;, &quot;微信&quot;, &quot;美团&quot;, &quot;大众点评&quot;, &quot;星海教育学生端&quot;,
+        &quot;小米视频&quot;, &quot;手机淘宝&quot;, &quot;天猫&quot;, &quot;唯品会&quot;, &quot;ZAKER&quot;, &quot;简书&quot;, &quot;高德地图&quot;, &quot;百度地图&quot;, &quot;小米商城&quot;,
+        &quot;QQ音乐&quot;, &quot;酷狗&quot;, &quot;Google Play&quot;, &quot;FaceBook&quot;, &quot;Linkedin&quot;, &quot;Google+&quot;,
+        &quot;易信&quot;, &quot;QQ空间&quot;, &quot;网易云音乐&quot;, &quot;拉勾网&quot;, &quot;FaceBook&quot; };
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    layout = (Flowlayout) this.findViewById(R.id.label_parent);
+    int backColor = 0xffcecece;
+    Drawable pressedDrawable = DrawableUtils.creatshape(backColor);// 按下时显示的图片
+    for (int i = 0; i &lt; str.length; i++) {
+        TextView textView = new TextView(this);
+        System.out.println(&quot;第&quot; + (i + 1) + &quot;个控件&quot;);
+        // 保证背景色部位白色跟黑色
+        int red = new Random().nextInt(220) + 20;
+        int green = new Random().nextInt(220) + 20;
+        int blue = new Random().nextInt(220) + 20;
+        int color = Color.rgb(red, green, blue);
+        textView.setText(str[i]);
+        textView.setPadding(UiUtils.dip2px(10), UiUtils.dip2px(10),
+                UiUtils.dip2px(10), UiUtils.dip2px(10));
+        // 代码设置字体大小为14sp
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        textView.setTextColor(Color.WHITE);
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        StateListDrawable listDrawable = DrawableUtils
+                .createSelectorDrawable(pressedDrawable,
+                        DrawableUtils.creatshape(color));
+        textView.setBackgroundDrawable(listDrawable);
+        textView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        // 这里得设为true，new出来的TextView默认是无法点击的
+        textView.setClickable(true);
+        layout.addView(textView);
+    }
+}
+
+}
+</code></pre><p>　　这样代码就把标签添加好了，那么我们下面就来看看代码实现Shape跟代码实现Selector：</p>
+<pre><code>public class DrawableUtils {
+public static GradientDrawable creatshape(int color) {
+    GradientDrawable drawable = new GradientDrawable();
+    // 设置控件的弧度，就是xml文件里shape的代码实现
+    drawable.setCornerRadius(UiUtils.dip2px(5));
+    drawable.setColor(color);
+    return drawable;
+}
+
+public static StateListDrawable createSelectorDrawable(Drawable pressedDrawable,Drawable normalDrawable){
+    //代码实现xml文件里面的selector
+    StateListDrawable drawable=new StateListDrawable();
+    //按下时显示的图片
+    drawable.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
+    //没有按下时显示的图片
+    drawable.addState(new int[]{}, normalDrawable);
+    return drawable;
+}
+}
+</code></pre><h3 id="2、标签位置的指定"><a href="#2、标签位置的指定" class="headerlink" title="2、标签位置的指定"></a>2、标签位置的指定</h3><p>　　通过上一个步骤我们添加好了标签，那么下面我们就来给这些标签知道特定的位置，代码如下：</p>
+<pre><code>public class Flowlayout extends ViewGroup {
+
+@SuppressLint(&quot;NewApi&quot;)
+public Flowlayout(Context context, AttributeSet attrs, int defStyleAttr,
+        int defStyleRes) {
+    super(context, attrs, defStyleAttr, defStyleRes);
+}
+
+public Flowlayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+}
+
+public Flowlayout(Context context, AttributeSet attrs) {
+    super(context, attrs);
+}
+
+public Flowlayout(Context context) {
+    super(context);
+}
+
+// 每一列之间的间距
+private int horizontolSpacing = UiUtils.dip2px(13);
+// 每一行之间的间距
+private int verticalSpacing = UiUtils.dip2px(13);
+private Line currentline;// 当前的行
+private int useWidth = 0;// 当前行使用的宽度
+private List&lt;Line&gt; mLines = new ArrayList&lt;Flowlayout.Line&gt;();
+
+private int width;
+
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    // super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    mLines.clear();
+    useWidth = 0;
+    int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+    int heightMode = MeasureSpec.getMode(heightMeasureSpec); // 获取当前父容器(Flowlayout)的模式
+
+    width = MeasureSpec.getSize(widthMeasureSpec) - getPaddingLeft()
+            - getPaddingRight();
+    int height = MeasureSpec.getSize(heightMeasureSpec)
+            - getPaddingBottom() - getPaddingTop();// 获取当前父容器的宽高
+
+    int childeWidthMode;
+    int childeHeightMode;
+
+    // MeasureSpec.EXACTLY代表这个控件是一个精确地值（比如宽高为某一具体值或者父控件的宽高为match_parent），MeasureSpec.AT_MOST代表这个控件的值不确定（一般是宽高为某一不确定的值，比如控件的宽高为wrap_content）
+    // 为了测量每个孩子 需要指定每个孩子测量规则
+    childeWidthMode = widthMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST
+            : widthMode;
+
+    childeHeightMode = heightMode == MeasureSpec.EXACTLY ? MeasureSpec.AT_MOST
+            : heightMode;
+
+    int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
+            childeWidthMode, width);
+    int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
+            childeHeightMode, height);
+
+    currentline = new Line();
+    for (int i = 0; i &lt; getChildCount(); i++) {
+        View v = getChildAt(i);
+        v.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+        int childWidth = v.getMeasuredWidth();
+        useWidth += childWidth;// 让当前行加上使用的长度
+        if (useWidth &lt; width) {
+            currentline.addChild(v);// 这时候证明当前的孩子是可以放进当前的行里,放进去
+            useWidth += horizontolSpacing;
+            if (useWidth &gt; width) {
+                newLine();
+            }
+        } else {
+            if (currentline.getChildCount() &lt; 1) {// 保证当前行里面最少有一个孩子
+                currentline.addChild(v);
+            }
+            newLine();
+        }
+
+    }
+
+    if (!mLines.contains(currentline)) {
+        mLines.add(currentline);// 添加最后一行
+    }
+
+    int totalheight = 0;
+    for (Line line : mLines) {
+        totalheight += line.getHeight();
+    }
+    totalheight += verticalSpacing * (mLines.size() - 1) + getPaddingTop()
+            + getPaddingBottom();
+
+    setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(),
+            resolveSize(totalheight, heightMeasureSpec));
+}
+
+@Override
+protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    l += getPaddingLeft();
+    t += getPaddingTop();
+    for (int i = 0; i &lt; mLines.size(); i++) {
+        Line line = mLines.get(i);
+        line.layout(l, t); // 交给每一行去分配
+        t += line.getHeight() + verticalSpacing;
+    }
+}
+
+// 换行
+private void newLine() {
+    mLines.add(currentline);// 记录之前的行
+    currentline = new Line(); // 创建新的一行
+    useWidth = 0;
+}
+
+private class Line {
+    int height = 0; // 当前行的高度
+    int lineWidth = 0;// 行的总高度
+    private List&lt;View&gt; children = new ArrayList&lt;View&gt;();
+
+    /**
+     * 添加一个孩子
+     * 
+     * @param child
+     */
+    public void addChild(View v) {
+        children.add(v);
+        //当一行中用一个控件比其他的控件要高，则高度以这个为准
+        if (v.getMeasuredHeight() &gt; height) {
+            height = v.getMeasuredHeight();
+        }
+        lineWidth += v.getMeasuredWidth();
+    }
+
+    public void layout(int l, int t) {
+        lineWidth += horizontolSpacing * (children.size() - 1);
+        int surplusChild = 0;
+        // 查看每一行是否有剩余的距离
+        int surplus = width - lineWidth;
+        if (surplus &gt; 0) {
+            // 如果有剩余的距离则平均分配给每一个子孩子
+            if (children.size() != 0)
+                surplusChild = surplus / children.size();
+        }
+        for (int i = 0; i &lt; children.size(); i++) {
+            View child = children.get(i);
+            // getMeasuredWidth() 控件实际的大小
+            // getWidth() 控件显示的大小
+            child.layout(l, t, l + child.getMeasuredWidth() + surplusChild,
+                    t + child.getMeasuredHeight());
+            l += child.getMeasuredWidth() + surplusChild;
+            l += horizontolSpacing;
+        }
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * 返回孩子的数量
+     * 
+     * @return
+     */
+    public int getChildCount() {
+        return children.size();
+    }
+
+}
+
+}
+</code></pre><p>　　通过上面代码我们就把每个标签的位置指定了，下面就简单了。只需要我们再布局文件里这样写就可以实现了：</p>
+<pre><code>&lt;com.example.labelview.Flowlayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;
+android:id=&quot;@+id/label_parent&quot;
+android:padding=&quot;10dp&quot;
+android:orientation=&quot;vertical&quot; &gt;
+
+&lt;/com.example.labelview.Flowlayout&gt;
+</code></pre><p>　　通过上面的布局跟代码我们就实现了开始图片所要的效果，不过还有一个bug，就是在数组里添加一个数据后，显示会有一点问题。希望有人能解决这个问题。当然这个的实现有一点复杂了，如果看不懂就多谷歌、必应、百度。当然如果弄懂了对自定义控件的提升很大的。<br>　　完毕、收工…</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/02/面向holder编程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">面向holder编程</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="android标签页面的展示" data-title="android标签页面的展示" data-url="http://yoursite.com/2016/01/23/android标签页面的展示/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 默默
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
